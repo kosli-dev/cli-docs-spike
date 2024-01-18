@@ -10,8 +10,7 @@
           <tr>
             <td>
               <div class="attest"
-                   data-name="dashboard.pull-request"
-                   data-ci-lit="dashboard_pull-request">
+                   data-name="dashboard_pull-request">
                 <div>dashboard.pull-request</div>
                 <div>[tick]</div>
               </div>
@@ -19,8 +18,7 @@
 
             <td>
               <div class="attest"
-                   data-name="dashboard.lint"
-                   data-ci-lit="dashboard_lint">
+                   data-name="dashboard_lint">
                 <div>dashboard.lint</div>
                 <div>[tick]</div>
               </div>
@@ -28,8 +26,7 @@
 
             <td>
               <div class="attest"
-                   data-name="dashboard"
-                   data-ci-lit="dashboard">
+                   data-name="dashboard">
                 <div>dashboard</div>
                 <div>[tick]</div>
               </div>
@@ -37,8 +34,7 @@
 
             <td>
               <div class="attest"
-                   data-name="dashboard.unit-test"
-                   data-ci-lit="dashboard_unit-test">
+                   data-name="dashboard_unit-test">
                 <div>dashboard.unit-test</div>
                 <div>[tick]</div>
               </div>
@@ -46,8 +42,7 @@
 
             <td>
               <div class="attest"
-                   data-name="dashboard.snyk"
-                   data-ci-lit="dashboard_snyk">
+                   data-name="dashboard_snyk">
                 <div>dashboard.snyk</div>
                 <div>[tick]</div>
               </div>
@@ -140,23 +135,46 @@
 <script type="text/javascript">
   $(window).ready(()=> {
 
-    $(".attest").each(function() {
+    // When you click on an attestation
+    const $attestations = $(".attest");
+
+    $attestations.each(function() {
       const $attest = $(this);
       $attest.click(function() {
-        const ci_lit = $attest.data("ci-lit");
+        const name = $attest.data("name");
 
-        const highlight = (name) => {
-          const nodes = $(`.${name} .${ci_lit}`);
-          $(`.${name} .line`).removeClass('lit');
-          nodes.each(function() {
-            $(this).addClass('lit');
-          });
-          nodes.last().scrollIntoView();
+        const highlight = (kind) => {
+          const nodes = $(`.${kind} .${name}`);
+          $(`.${kind} .line`).removeClass('lit');
+          nodes.each(function() { $(this).addClass('lit'); });
+          nodes.last().scrollIntoView({duration:1000});
         };
+        // Highlight only that attestation
+        $attestations.removeClass('lit');
+        $attest.addClass('lit');
+        // And the lines in the yml files for that attestation
         highlight('ci-yml');
         highlight('template-yml');
       });
+    });
 
+    // When you click in ci-yml
+    $(".ci-yml .line").click(function() {
+      const $line = $(this);
+      const classes = $line.attr('class').split(/\s+/);
+      $.each(classes, function(index, name) {
+        console.log(`name=${name}`);
+        // Highlight attestation
+        $('.attest').removeClass('lit');
+        const x = $(`.attest[data-name='${name}']`);
+        console.log(`matches=${x.length}`);
+        x.addClass('lit');
+        // Highlight template-yml
+        $('.template-yml .line').removeClass('lit');
+        const nodes = $(`.template-yml .${name}`);
+        nodes.addClass('lit');
+        nodes.last().scrollIntoView({duration:1000});
+      });
     });
 
   });

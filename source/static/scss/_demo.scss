@@ -21,19 +21,22 @@ h1 {
   width: 300px;
   border: 1px solid gray;
   background-color: LightGray;
+  max-height: 400px;
+  overflow-y: scroll;
   .lit {
     background-color: LightGreen;
   }
-  max-height: 400px;
-  overflow-y: scroll;
 }
 
-.kosli-yml {
+.template-yml {
   width: 300px;
   border: 1px solid gray;
   background-color: White;
   max-height: 400px;
   overflow-y: scroll;
+  .lit {
+    background-color: LightBlue;
+  }
 }
 
 .line {

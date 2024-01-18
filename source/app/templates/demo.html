@@ -96,7 +96,7 @@
         </div>
       </td>
       <td>
-        <div class="kosli-yml">
+        <div class="template-yml">
           <div class="line"                       ></div>
           <div class="line"                       ></div>
           <div class="line"                       ></div>
@@ -144,12 +144,17 @@
       const $attest = $(this);
       $attest.click(function() {
         const ci_lit = $attest.data("ci-lit");
-        const nodes = $(`.ci-yml .${ci_lit}`);
-        $('.ci-yml .line').removeClass('lit');
-        nodes.each(function() {
-          $(this).addClass('lit');
-        });
-        nodes.last().scrollIntoView();
+
+        const highlight = (name) => {
+          const nodes = $(`.${name} .${ci_lit}`);
+          $(`.${name} .line`).removeClass('lit');
+          nodes.each(function() {
+            $(this).addClass('lit');
+          });
+          nodes.last().scrollIntoView();
+        };
+        highlight('ci-yml');
+        highlight('template-yml');
       });
 
     });

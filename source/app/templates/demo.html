@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <h1>Kosli docs demo</h1>
 
   <table>
     <tr colspan="2">
@@ -170,14 +169,16 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        // Highlight attestation
-        $('.attest').removeClass('lit');
-        $(`.attest[data-name='${name}']`).addClass('lit');
-        // Highlight template-yml
-        $('.template-yml .line').removeClass('lit');
-        const nodes = $(`.template-yml .${name}`);
-        nodes.addClass('lit');
-        scrollIntoView(nodes);
+        if (name != "line") {
+          // Highlight attestation
+          $('.attest').removeClass('lit');
+          $(`.attest[data-name='${name}']`).addClass('lit');
+          // Highlight template-yml
+          $('.template-yml .line').removeClass('lit');
+          const nodes = $(`.template-yml .${name}`);
+          nodes.addClass('lit');
+          scrollIntoView(nodes);
+        }
       });
       // Highlight self
       $ci_yml_lines.removeClass('lit');
@@ -190,14 +191,16 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        // Highlight attestation
-        $('.attest').removeClass('lit');
-        $(`.attest[data-name='${name}']`).addClass('lit');
-        // Highlight ci-yml
-        $('.ci-yml .line').removeClass('lit');
-        const nodes = $(`.ci-yml .${name}`);
-        nodes.addClass('lit');
-        scrollIntoView(nodes);
+        if (name != "line") {
+          // Highlight attestation
+          $('.attest').removeClass('lit');
+          $(`.attest[data-name='${name}']`).addClass('lit');
+          // Highlight ci-yml
+          $('.ci-yml .line').removeClass('lit');
+          const nodes = $(`.ci-yml .${name}`);
+          nodes.addClass('lit');
+          scrollIntoView(nodes);
+        }
       });
       // Highlight self
       $template_yml_lines.removeClass('lit');

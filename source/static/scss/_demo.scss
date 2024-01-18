@@ -1,48 +1,48 @@
 
 body {
-  margin: 45px;
-  background: khaki;
-  font-size: 1em
+    margin: 45px;
+    background: khaki;
+    font-size: 1em
 }
 
 h1 {
-  margin: 10px;
+    margin: 10px;
 }
 
 
 .attest {
-  margin: 10px;
-  padding: 10px 10px 10px 20px;
-  font-size: 1.6em;
-  border: 1px solid gray;
-  &:not(.lit) {
-    background-color: White;
-  }
-  &.lit {
-    background-color: LightBlue;
-  }
+    margin: 10px;
+    padding: 10px 10px 10px 20px;
+    font-size: 1.6em;
+    border: 1px solid gray;
+    &:not(.lit) {
+        background-color: White;
+    }
+    &.lit {
+        background-color: LightBlue;
+    }
 }
 
 .ci-yml {
-  width: 300px;
-  border: 1px solid gray;
-  background-color: White;
-  max-height: 400px;
-  overflow-y: scroll;
-  .lit {
-    background-color: LightBlue;
-  }
+    width: 300px;
+    border: 1px solid gray;
+    background-color: White;
+    max-height: 400px;
+    overflow-y: scroll;
+    .lit {
+        background-color: LightBlue;
+    }
 }
 
 .template-yml {
-  width: 300px;
-  border: 1px solid gray;
-  background-color: White;
-  max-height: 400px;
-  overflow-y: scroll;
-  .lit {
-    background-color: LightBlue;
-  }
+    width: 300px;
+    border: 1px solid gray;
+    background-color: White;
+    max-height: 400px;
+    overflow-y: scroll;
+    .lit {
+        background-color: LightBlue;
+    }
 }
 
 .line {
@@ -51,3 +51,6 @@ h1 {
     height: 24px;
 }
 
+.filename {
+    font-size: 1.6em;
+}

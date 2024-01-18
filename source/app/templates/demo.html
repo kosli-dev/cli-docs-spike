@@ -54,6 +54,7 @@
     </tr>
     <tr>
       <td>
+        <div class="filename">CI workflow yml</div>
         <div class="ci-yml">
           <div class="line"                       ></div>
           <div class="line"                       ></div>
@@ -91,6 +92,7 @@
         </div>
       </td>
       <td>
+        <div class="filename">Kosli template yml</div>
         <div class="template-yml">
           <div class="line"                       ></div>
           <div class="line"                       ></div>
@@ -135,6 +137,10 @@
 <script type="text/javascript">
   $(window).ready(()=> {
 
+    const scrollIntoView = (nodes) => {
+      nodes.last().scrollIntoView({duration:1000});
+    };
+
     // When you click on an attestation
     const $attestations = $(".attest");
 
@@ -147,7 +153,7 @@
           const nodes = $(`.${kind} .${name}`);
           $(`.${kind} .line`).removeClass('lit');
           nodes.each(function() { $(this).addClass('lit'); });
-          nodes.last().scrollIntoView({duration:1000});
+          scrollIntoView(nodes);
         };
         // Highlight only that attestation
         $attestations.removeClass('lit');
@@ -159,22 +165,43 @@
     });
 
     // When you click in ci-yml
-    $(".ci-yml .line").click(function() {
+    const $ci_yml_lines = $(".ci-yml .line");
+    $ci_yml_lines.click(function() {
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        console.log(`name=${name}`);
         // Highlight attestation
         $('.attest').removeClass('lit');
-        const x = $(`.attest[data-name='${name}']`);
-        console.log(`matches=${x.length}`);
-        x.addClass('lit');
+        $(`.attest[data-name='${name}']`).addClass('lit');
         // Highlight template-yml
         $('.template-yml .line').removeClass('lit');
         const nodes = $(`.template-yml .${name}`);
         nodes.addClass('lit');
-        nodes.last().scrollIntoView({duration:1000});
+        scrollIntoView(nodes);
       });
+      // Highlight self
+      $ci_yml_lines.removeClass('lit');
+      $line.addClass('lit');
+    });
+
+    // When you click in template-yml
+    const $template_yml_lines = $(".template-yml .line");
+    $template_yml_lines.click(function() {
+      const $line = $(this);
+      const classes = $line.attr('class').split(/\s+/);
+      $.each(classes, function(index, name) {
+        // Highlight attestation
+        $('.attest').removeClass('lit');
+        $(`.attest[data-name='${name}']`).addClass('lit');
+        // Highlight ci-yml
+        $('.ci-yml .line').removeClass('lit');
+        const nodes = $(`.ci-yml .${name}`);
+        nodes.addClass('lit');
+        scrollIntoView(nodes);
+      });
+      // Highlight self
+      $template_yml_lines.removeClass('lit');
+      $line.addClass('lit');
     });
 
   });

@@ -144,11 +144,12 @@
       const $attest = $(this);
       $attest.click(function() {
         const ci_lit = $attest.data("ci-lit");
+        const nodes = $(`.ci-yml .${ci_lit}`);
         $('.ci-yml .line').removeClass('lit');
-        $(`.ci-yml .${ci_lit}`).each(function() {
+        nodes.each(function() {
           $(this).addClass('lit');
         });
-        // TODO: auto-scroll inside ci-yml
+        nodes.last().scrollIntoView();
       });
 
     });

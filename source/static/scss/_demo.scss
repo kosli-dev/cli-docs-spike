@@ -17,7 +17,23 @@ h1 {
   border: 1px solid gray;
 }
 
+.ci-yml {
+  width: 300px;
+  border: 1px solid gray;
+  background-color: LightGray;
+  .lit {
+    background-color: LightGreen;
+  }
+}
+
+.kosli-yml {
+  width: 300px;
+  border: 1px solid gray;
+  background-color: White;
+}
+
 .line {
     font-family: monospace;
     font-size: 1.6em;
 }
+

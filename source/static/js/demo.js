@@ -1,4 +1,4 @@
 
-const doAnAlert = () => {
+const f = () => {
   //alert('Hello');
 };

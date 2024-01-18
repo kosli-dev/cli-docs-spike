@@ -9,35 +9,45 @@
         <table>
           <tr>
             <td>
-              <div class="attest" data-name="pull-request">
+              <div class="attest"
+                   data-name="pull-request"
+                   data-ci-lit="pull-request">
                 <div>pull-request</div>
                 <div>[tick]</div>
               </div>
             </td>
 
             <td>
-              <div class="attest" data-name="lint">
+              <div class="attest"
+                   data-name="lint"
+                   data-ci-lit="lint">
                 <div>lint</div>
                 <div>[tick]</div>
               </div>
             </td>
 
             <td>
-              <div class="attest" data-name="dashboard">
+              <div class="attest"
+                   data-name="dashboard"
+                   data-ci-lit="dashboard">
                 <div>dashboard</div>
                 <div>[tick]</div>
               </div>
             </td>
 
             <td>
-              <div class="attest" data-name="dashboard.unit-test">
+              <div class="attest"
+                   data-name="dashboard.unit-test"
+                   data-ci-lit="dashboard_unit-test">
                 <div>dashboard.unit-test</div>
                 <div>[tick]</div>
               </div>
             </td>
 
             <td>
-              <div class="attest" data-name="dashboard.snyk">
+              <div class="attest"
+                   data-name="dashboard.snyk"
+                   data-ci-lit="dashboard_snyk">
                 <div>dashboard.snyk</div>
                 <div>[tick]</div>
               </div>
@@ -49,13 +59,19 @@
     </tr>
     <tr>
       <td>
-        <div class="ci line 1">line 1</div>
-        <div class="ci line 2">line 2</div>
-        <div class="ci line 3">line 3</div>
-        <div class="ci line 4">line 4</div>
+        <div class="ci-yml">
+          <div class="line pull-request"       >line for PR</div>
+          <div class="line lint"               >line for lint</div>
+          <div class="line dashboard"          >line for lint</div>
+          <div class="line dashboard_unit-test">line for UT 1</div>
+          <div class="line dashboard_unit-test">line for UT 2</div>
+          <div class="line dashboard_snyk"     >line for snyk</div>
+        </div>
       </td>
       <td>
-        Template yml here
+        <div class="kosli-yml">
+          <div class="line pull-request"       >line in Kosli yml</div>
+        </div>
       </td>
     </tr>
   </table>
@@ -66,7 +82,20 @@
 {% block js %}
 <script type="text/javascript">
   $(window).ready(()=> {
-    doAnAlert();
+
+    $(".attest").each(function() {
+      const $attest = $(this);
+      $attest.click(function() {
+        const ci_lit = $attest.data("ci-lit");
+        //console.log(`ci-lit == ${ci_lit}`);
+        $('.ci-yml .line').removeClass('lit');
+        $(`.ci-yml .${ci_lit}`).each(function() {
+          $(this).addClass('lit');
+        });
+      });
+
+    });
+
   });
 </script>
 {% endblock %}

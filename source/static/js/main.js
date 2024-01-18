@@ -3552,6 +3552,6 @@
         return p
     })
 })(window);
-const doAnAlert = () => {
+const f = () => {
     //alert('Hello');
 };

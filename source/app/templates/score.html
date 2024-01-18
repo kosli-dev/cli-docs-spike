@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>XY Business Game</h1>
+
+  <form method="POST">
+    <fieldset class="form-group">
+      {{ form.csrf_token }}
+      {% set n = form.squads | length %}
+
+      <button onclick="location.href='/score/{{ n - 1 }}'"
+              type="button" {{'disabled' if n == 2 }}>-</button>
+
+      {{ n }}
+
+      <button onclick="location.href='/score/{{ n + 1 }}'"
+              type="button" {{'disabled' if n == 6}} >+</button>
+
+      {% for squad in form.squads %}
+      <div class="panel">
+        Squad-{{ "ABCDEF"[loop.index0] }} {{ squad.letters }} {{ squad.is_word }} word?
+      </div>
+      {% endfor %}
+
+      <div class="panel">{{ form.is_sentence }} sentence?</div>
+      <div class="panel">{{ form.is_profound }} profound?</div>
+
+      {{ form.submit() }}
+    </fieldset>
+  </form>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  $(window).ready(()=> {
+    const words = $('.word');
+    const is_sentence = $('#is_sentence');
+    const is_profound = $('#is_profound');
+    is_profound.click(() => {
+      const value = is_profound.is(':checked');
+      is_sentence.prop('checked', value);
+      words.prop('checked', value);
+    });
+    is_sentence.click(() => {
+      const value = is_sentence.is(':checked');
+      words.prop('checked', value);
+    });
+  });
+</script>
+{% endblock %}

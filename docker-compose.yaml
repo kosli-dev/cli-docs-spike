@@ -1,0 +1,24 @@
+version: '3'
+
+networks:
+  xy_net:
+    external: true
+
+# There appears to be no way to parameterize service names.
+# We want three identical services;
+# one for a demo, one for unit-testing, one for system-testing.
+# So we pass this yaml file through sed to replace {NAME}.
+# Eg see scripts/lib.sh bring_server_up()
+services:
+  xy-{NAME}:
+    container_name: "${XY_CONTAINER_NAME}"
+    env_file: [ "${ENV_FILE}" ]
+    image: "${XY_IMAGE_NAME}"
+    networks: [ xy_net ]
+    ports: [ "${XY_HOST_PORT}:${XY_CONTAINER_PORT}" ]
+    read_only: true
+    tmpfs: [ /tmp ]
+    user: xy
+    volumes:
+      - ./source:${XY_CONTAINER_ROOT_DIR}/source:ro
+      - ./test:${XY_CONTAINER_ROOT_DIR}/test:ro

@@ -10,18 +10,18 @@
           <tr>
             <td>
               <div class="attest"
-                   data-name="pull-request"
-                   data-ci-lit="pull-request">
-                <div>pull-request</div>
+                   data-name="dashboard.pull-request"
+                   data-ci-lit="dashboard_pull-request">
+                <div>dashboard.pull-request</div>
                 <div>[tick]</div>
               </div>
             </td>
 
             <td>
               <div class="attest"
-                   data-name="lint"
-                   data-ci-lit="lint">
-                <div>lint</div>
+                   data-name="dashboard.lint"
+                   data-ci-lit="dashboard_lint">
+                <div>dashboard.lint</div>
                 <div>[tick]</div>
               </div>
             </td>
@@ -60,30 +60,74 @@
     <tr>
       <td>
         <div class="ci-yml">
-          <div class="line pull-request"       >line for PR</div>
-          <div class="line lint"               >line for lint</div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line"                    ></div>
-          <div class="line dashboard"          >line for lint</div>
-          <div class="line dashboard_unit-test">line for UT 1</div>
-          <div class="line dashboard_unit-test">line for UT 2</div>
-          <div class="line dashboard_snyk"     >line for snyk</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_pull-request">line for PR</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_lint"        >line for lint</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard"             >line for dashboard</div>
+          <div class="line dashboard"             >line for dashboard</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_unit-test"   >line for UT 1</div>
+          <div class="line dashboard_unit-test"   >line for UT 2</div>
+          <div class="line dashboard_unit-test"   >line for UT 2</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_snyk"        >line for snyk</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
         </div>
       </td>
       <td>
         <div class="kosli-yml">
-          <div class="line pull-request"       >line in Kosli yml</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_pull-request">line PR</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_lint"        >line Lint</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard"             >line dashboard</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_unit-test"   >line unit-test</div>
+          <div class="line dashboard_unit-test"   >line unit-test</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line dashboard_snyk"        >line snyk</div>
+          <div class="line dashboard_snyk"        >line snyk</div>
+          <div class="line dashboard_snyk"        >line snyk</div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
+          <div class="line"                       ></div>
         </div>
       </td>
     </tr>
@@ -104,7 +148,6 @@
         $(`.ci-yml .${ci_lit}`).each(function() {
           $(this).addClass('lit');
         });
-        // TODO: fixed-height for ci-yml
         // TODO: auto-scroll inside ci-yml
       });
 

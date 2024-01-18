@@ -3552,3 +3552,6 @@
         return p
     })
 })(window);
+const doAnAlert = () => {
+    alert('Hello');
+};

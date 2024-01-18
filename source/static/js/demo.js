@@ -1,0 +1,4 @@
+
+const doAnAlert = () => {
+  //alert('Hello');
+};

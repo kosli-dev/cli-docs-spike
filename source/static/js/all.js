@@ -1,2 +1,2 @@
 // require ./jquery.min.js
-// require ./xy.js
+// require ./demo.js

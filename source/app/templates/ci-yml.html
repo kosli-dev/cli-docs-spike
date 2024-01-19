@@ -12,7 +12,7 @@
   <span class='line '>{% raw %}  KOSLI_HOST: https://app.kosli.com{% endraw %}</span>
   <span class='line '>{% raw %}  KOSLI_ORG: cyber-dojo{% endraw %}</span>
   <span class='line '>{% raw %}  KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN_TRAILS }}{% endraw %}</span>
-  <span class='line '>{% raw %}  KOSLI_FLOW: differ{% endraw %}</span>
+  <span class='line '>{% raw %}  KOSLI_FLOW: dashboard{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}jobs:{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
@@ -70,7 +70,7 @@
   <span class='line '>{% raw %}        run:{% endraw %}</span>
   <span class='line dashboard_pull-request'>{% raw %}          kosli attest pullrequest github{% endraw %}</span>
   <span class='line dashboard_pull-request'>{% raw %}            --github-token ${{ secrets.GITHUB_TOKEN }}{% endraw %}</span>
-  <span class='line dashboard_pull-request'>{% raw %}            --name=differ.pull-request{% endraw %}</span>
+  <span class='line dashboard_pull-request'>{% raw %}            --name=dashboard.pull-request{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}  lint:{% endraw %}</span>
@@ -106,7 +106,7 @@
   <span class='line dashboard_lint'>{% raw %}          kosli attest generic \{% endraw %}</span>
   <span class='line dashboard_lint'>{% raw %}            --compliant="${KOSLI_LINT_COMPLIANT}" \{% endraw %}</span>
   <span class='line dashboard_lint'>{% raw %}            --evidence-paths="${LINT_EVIDENCE_DIR}" \{% endraw %}</span>
-  <span class='line dashboard_lint'>{% raw %}            --name=differ.lint{% endraw %}</span>
+  <span class='line dashboard_lint'>{% raw %}            --name=dashboard.lint{% endraw %}</span>
   <span class='line '>{% raw %}          exit $STATUS{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
@@ -134,7 +134,7 @@
   <span class='line '>{% raw %}        run:{% endraw %}</span>
   <span class='line dashboard'>{% raw %}          kosli attest artifact "${IMAGE_NAME}"{% endraw %}</span>
   <span class='line dashboard'>{% raw %}            --artifact-type=docker{% endraw %}</span>
-  <span class='line dashboard'>{% raw %}            --name=differ{% endraw %}</span>
+  <span class='line dashboard'>{% raw %}            --name=dashboard{% endraw %}</span>
   <span class='line dashboard'>{% raw %}            --trail="${GITHUB_SHA}"{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}      - name: Set outputs{% endraw %}</span>
@@ -173,13 +173,13 @@
   <span class='line '>{% raw %}          KOSLI_COMPLIANT: ${{ env.KOSLI_COMPLIANT }}{% endraw %}</span>
   <span class='line '>{% raw %}        run: |{% endraw %}</span>
   <span class='line dashboard_unit-test'>{% raw %}          kosli attest junit "${IMAGE_NAME}" \{% endraw %}</span>
-  <span class='line dashboard_unit-test'>{% raw %}              --name=differ.unit-test \{% endraw %}</span>
+  <span class='line dashboard_unit-test'>{% raw %}              --name=dashboard.unit-test \{% endraw %}</span>
   <span class='line dashboard_unit-test'>{% raw %}              --results-dir=test/reports/junit{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line dashboard_branch-coverage'>{% raw %}          kosli attest generic "${IMAGE_NAME}" \{% endraw %}</span>
   <span class='line dashboard_branch-coverage'>{% raw %}              --compliant=${KOSLI_COMPLIANT} \{% endraw %}</span>
   <span class='line dashboard_branch-coverage'>{% raw %}              --evidence-paths=./test/reports/evidence.json \{% endraw %}</span>
-  <span class='line dashboard_branch-coverage'>{% raw %}              --name=differ.branch-coverage{% endraw %}</span>
+  <span class='line dashboard_branch-coverage'>{% raw %}              --name=dashboard.branch-coverage{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}  snyk-scan:{% endraw %}</span>
@@ -212,7 +212,7 @@
   <span class='line '>{% raw %}      - name: Attest Snyk evidence to Kosli{% endraw %}</span>
   <span class='line '>{% raw %}        run:{% endraw %}</span>
   <span class='line dashboard_snyk'>{% raw %}          kosli attest snyk ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line dashboard_snyk'>{% raw %}            --name=differ.snyk-scan{% endraw %}</span>
+  <span class='line dashboard_snyk'>{% raw %}            --name=dashboard.snyk-scan{% endraw %}</span>
   <span class='line dashboard_snyk'>{% raw %}            --scan-results=snyk.json{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>
   <span class='line '>{% raw %}{% endraw %}</span>

@@ -10,7 +10,7 @@ env:
   KOSLI_HOST: https://app.kosli.com
   KOSLI_ORG: cyber-dojo
   KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN_TRAILS }}
-  KOSLI_FLOW: differ
+  KOSLI_FLOW: dashboard
 
 jobs:
 
@@ -68,7 +68,7 @@ jobs:
         run:
           kosli attest pullrequest github
             --github-token ${{ secrets.GITHUB_TOKEN }}
-            --name=differ.pull-request
+            --name=dashboard.pull-request
 
 
   lint:
@@ -104,7 +104,7 @@ jobs:
           kosli attest generic \
             --compliant="${KOSLI_LINT_COMPLIANT}" \
             --evidence-paths="${LINT_EVIDENCE_DIR}" \
-            --name=differ.lint
+            --name=dashboard.lint
           exit $STATUS
                   
 
@@ -132,7 +132,7 @@ jobs:
         run:
           kosli attest artifact "${IMAGE_NAME}" 
             --artifact-type=docker 
-            --name=differ 
+            --name=dashboard 
             --trail="${GITHUB_SHA}"
 
       - name: Set outputs
@@ -171,13 +171,13 @@ jobs:
           KOSLI_COMPLIANT: ${{ env.KOSLI_COMPLIANT }}
         run: |         
           kosli attest junit "${IMAGE_NAME}" \
-              --name=differ.unit-test \
+              --name=dashboard.unit-test \
               --results-dir=test/reports/junit
           
           kosli attest generic "${IMAGE_NAME}" \
               --compliant=${KOSLI_COMPLIANT} \
               --evidence-paths=./test/reports/evidence.json \
-              --name=differ.branch-coverage
+              --name=dashboard.branch-coverage
 
 
   snyk-scan:
@@ -210,7 +210,7 @@ jobs:
       - name: Attest Snyk evidence to Kosli
         run:
           kosli attest snyk ${IMAGE_NAME} 
-            --name=differ.snyk-scan  
+            --name=dashboard.snyk-scan  
             --scan-results=snyk.json
 
 

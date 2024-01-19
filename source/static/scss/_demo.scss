@@ -29,9 +29,12 @@ body {
 .attest {
     margin: 10px;
     padding: 10px 10px 10px 20px;
-    font-size: 1.6em;
-    border: 1px solid LightGray;
+    font-size: 1.3em;
+    border: 3px solid LightGray;
     background-color: White;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .ci-yml, .ci-yml-commentary {
@@ -48,7 +51,7 @@ body {
 .ci-yml, .template-yml {
     background-color: Black;
     color: White;
-    .lit {
+    .lit, .s.lit:hover {
         background-color: lighten(Black, 50%);
     }
 }
@@ -65,6 +68,7 @@ body {
     }
     &.s:hover {
         cursor: pointer;
+        background-color: lighten(Black, 20%);
     }
 }
 

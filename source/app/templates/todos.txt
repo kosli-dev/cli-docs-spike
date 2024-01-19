@@ -1,0 +1,9 @@
+
+BUG: if you click on the leftmost attestation and then the
+rightmost attestation, the latter does scroll into view in .kosli.yml
+
+change cursor to indicate underlying behaviour on scrollover
+
+change to scrollover instead of click?
+
+when you scrollover a line, highlight all matching neighbouring lines

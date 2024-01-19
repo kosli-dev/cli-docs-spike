@@ -23,8 +23,6 @@
   $(window).ready(()=> {
 
     const scrollIntoView = (nodes) => {
-      // BUG: if you click on the leftmost attestation and then the
-      // rightmost attestation, the latter does scroll into view in .kosli.yml
       setTimeout(() => {
         nodes.first().get(0).scrollIntoView({behavior:"smooth", block:"center"});
       }, 100);

@@ -33,10 +33,11 @@ if __name__ == "__main__":  # pragma: no cover
     with open(filename, 'r') as file:
         lines = [line.rstrip() for line in file.readlines()]
         for n, line in enumerate(lines, 1):
+            number = "%3s" % n
             kind = line_kinds.get(n, "")
             # don't treat the line as jinja
             before = f"<span class='line {kind}'>{{% raw %}}"
             after = "{% endraw %}</span>"
-            print(f"  {before}{line}{after}")
+            print(f"  {before}{number} {line}{after}")
 
     print("</div>")

@@ -134,7 +134,6 @@ jobs:
           kosli attest artifact "${IMAGE_NAME}"
             --artifact-type=docker 
             --name=dashboard 
-            --trail="${GITHUB_SHA}"
 
       - name: Set outputs
         id: variables

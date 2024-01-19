@@ -15,9 +15,9 @@ if __name__ == "__main__":  # pragma: no cover
         (70, 3): "dashboard_pull-request",
         (105, 4): "dashboard_lint",
         (134, 4): "dashboard",
-        (172, 3): "dashboard_unit-test",
-        (180, 4): "dashboard_branch-coverage",
-        (215, 3): "dashboard_snyk"
+        (171, 3): "dashboard_unit-test",
+        (179, 4): "dashboard_branch-coverage",
+        (214, 3): "dashboard_snyk"
     }
     for (start, count), kind in data.items():
         for n in range(start, start+count):
@@ -37,9 +37,10 @@ if __name__ == "__main__":  # pragma: no cover
         line = line.ljust(max_length+5)
         number = "%3s" % n
         kind = line_kinds.get(n, "")
+        sn = "n" if kind == "" else "s"  # Something or Nothing
         # don't treat the line as jinja
-        before = f"<span class='line {kind}'>{{% raw %}}"
+        before = f"<span class='line {sn} {kind}'>{{% raw %}}"
         after = "{% endraw %}</span>"
-        print(f"  {before}<span class='number'>{number}</span> {line}{after}")
+        print(f"  {before}<span class='number'> {number}</span> {line}{after}")
 
     print("</div>")

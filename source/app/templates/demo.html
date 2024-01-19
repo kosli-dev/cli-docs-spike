@@ -1,21 +1,15 @@
 {% extends "base.html" %}
 
 {% block body %}
+{% include 'attestations.html' %}
   <table>
-    <tr colspan="2">
-      <td>{% include 'attestations.html' %}</td>
-    </tr>
     <tr>
       <td>{% include 'template-yml.html' %}</td>
-      <td>
-        commentary here...
-      </td>
+      <td>{% include 'template-yml-commentary.html' %}</td>
     </tr>
     <tr>
       <td>{% include 'ci-yml.html' %}</td>
-      <td>
-        commentary here...
-      </td>
+      <td>{% include 'ci-yml-commentary.html' %}</td>
     </tr>
   </table>
 {% endblock %}

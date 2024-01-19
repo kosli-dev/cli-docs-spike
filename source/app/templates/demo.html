@@ -23,10 +23,11 @@
   $(window).ready(()=> {
 
     const scrollIntoView = (nodes) => {
-      // TODO: how to know whether to scroll to top or bottom?
-      // Viz, how to make all lines visible?
-      //nodes.last().scrollIntoView({duration:1000}, false);
-      nodes.first().get(0).scrollIntoView({behavior:"smooth"}, true);  // top
+      // BUG: if you click on the leftmost attestation and then the
+      // rightmost attestation, the latter does scroll into view in .kosli.yml
+      setTimeout(() => {
+        nodes.first().get(0).scrollIntoView({behavior:"smooth", block:"center"});
+      }, 100);
     };
 
     // --------------------------------
@@ -37,8 +38,9 @@
     $attestations.each(function() {
       const $attest = $(this);
       $attest.click(function() {
+        console.log("attestation clicked");
         const name = $attest.data("name");
-
+        console.log(`attestation = ${name}`);
         const highlight = (kind) => {
           const nodes = $(`.${kind} .${name}`);
           $(`.${kind} .line`).removeClass('lit');
@@ -49,8 +51,8 @@
         $attestations.removeClass('lit');
         $attest.addClass('lit');
         // And the lines in the yml files for that attestation
-        highlight('ci-yml');
-        highlight('template-yml');
+        highlight('template-yml'); // For some unknown reason this call must come before...
+        highlight('ci-yml');       // ...this call
       });
     });
 

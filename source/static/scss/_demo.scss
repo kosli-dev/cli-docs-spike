@@ -1,16 +1,8 @@
 
 body {
-    margin: 45px;
+    margin-left: 45px;
     background: khaki;
     font-size: 1em
-}
-
-.attest {
-    margin: 10px;
-    padding: 10px 10px 10px 20px;
-    font-size: 1.6em;
-    border: 1px solid LightGray;
-    background-color: White;
 }
 
 .template-yml, .template-yml-commentary {
@@ -20,9 +12,17 @@ body {
     border: 1px solid LightGray;
     padding-left: 5px;
     background-color: White;
-    height: 250px;
+    height: 200px;
     overflow-y: scroll;
     overflow: scroll
+}
+
+.attest {
+    margin: 10px;
+    padding: 10px 10px 10px 20px;
+    font-size: 1.6em;
+    border: 1px solid LightGray;
+    background-color: White;
 }
 
 .ci-yml, .ci-yml-commentary {
@@ -52,6 +52,7 @@ body {
 }
 
 .title {
+    padding-top: 20px;
     font-size: 1.6em;
 }
 

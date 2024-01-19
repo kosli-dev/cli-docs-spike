@@ -36,18 +36,18 @@
     $attestations.each(function() {
       const $attest = $(this);
       $attest.click(function() {
-        console.log("attestation clicked");
         const name = $attest.data("name");
-        console.log(`attestation = ${name}`);
         const highlight = (kind) => {
           const nodes = $(`.${kind} .${name}`);
           $(`.${kind} .line`).removeClass('lit');
           nodes.each(function() { $(this).addClass('lit'); });
           scrollIntoView(nodes);
         };
+
         // Highlight only that attestation
         $attestations.removeClass('lit');
         $attest.addClass('lit');
+
         // And the lines in the yml files for that attestation
         highlight('template-yml'); // For some unknown reason this call must come before...
         highlight('ci-yml');       // ...this call

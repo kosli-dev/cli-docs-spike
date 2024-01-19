@@ -12,12 +12,12 @@ if __name__ == "__main__":  # pragma: no cover
     line_kinds = {}
     data = {
         (39, 1): "trail",
-        (69, 3): "dashboard_pull-request",
-        (104, 4): "dashboard_lint",
-        (133, 4): "dashboard",
-        (171, 3): "dashboard_unit-test",
-        (179, 4): "dashboard_branch-coverage",
-        (214, 3): "dashboard_snyk"
+        (70, 3): "dashboard_pull-request",
+        (105, 4): "dashboard_lint",
+        (134, 4): "dashboard",
+        (172, 3): "dashboard_unit-test",
+        (180, 4): "dashboard_branch-coverage",
+        (215, 3): "dashboard_snyk"
     }
     for (start, count), kind in data.items():
         for n in range(start, start+count):
@@ -30,12 +30,16 @@ if __name__ == "__main__":  # pragma: no cover
     filename = f"{path}/main.yml"
     with open(filename, 'r') as file:
         lines = [line.rstrip() for line in file.readlines()]
-        for n, line in enumerate(lines, 1):
-            number = "%3s" % n
-            kind = line_kinds.get(n, "")
-            # don't treat the line as jinja
-            before = f"<span class='line {kind}'>{{% raw %}}"
-            after = "{% endraw %}</span>"
-            print(f"  {before}<span class='number'>{number}</span> {line}{after}")
+
+    max_length = max(len(line) for line in lines)
+
+    for n, line in enumerate(lines, 1):
+        line = line.ljust(max_length+5)
+        number = "%3s" % n
+        kind = line_kinds.get(n, "")
+        # don't treat the line as jinja
+        before = f"<span class='line {kind}'>{{% raw %}}"
+        after = "{% endraw %}</span>"
+        print(f"  {before}<span class='number'>{number}</span> {line}{after}")
 
     print("</div>")

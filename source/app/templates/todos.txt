@@ -5,5 +5,3 @@ rightmost attestation, the latter does scroll into view in .kosli.yml
 change cursor to indicate underlying behaviour on scrollover
 
 change to scrollover instead of click?
-
-would be nice if whole line (to far right, including ws) was hover/click able.

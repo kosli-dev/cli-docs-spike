@@ -37,6 +37,14 @@ body {
     overflow: scroll
 }
 
+.ci-yml, .template-yml {
+    background-color: Black;
+    color: White;
+    .lit {
+        background-color: lighten(Black, 50%);
+    }
+}
+
 .line {
     font-family: monospace;
     font-size: 1.6em;
@@ -48,17 +56,5 @@ body {
 }
 
 .lit {
-    background-color: LightBlue;
-}
-
-// Force vertical scrollbars to appear
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    background-color: lighten(LightBlue, 10%);
 }

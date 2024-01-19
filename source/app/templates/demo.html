@@ -25,7 +25,8 @@
     const scrollIntoView = (nodes) => {
       // TODO: how to know whether to scroll to top or bottom?
       // Viz, how to make all lines visible?
-      nodes.last().scrollIntoView({duration:1000});
+      //nodes.last().scrollIntoView({duration:1000}, false);
+      nodes.first().get(0).scrollIntoView({behavior:"smooth"}, true);  // top
     };
 
     // --------------------------------

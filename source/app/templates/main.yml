@@ -128,7 +128,7 @@ jobs:
         with:
           version: ${{ vars.KOSLI_CLI_VERSION }}
 
-      - name: Attest image evidence to Kosli flow
+      - name: Attest artifact evidence to Kosli flow
         run:
           kosli attest artifact "${IMAGE_NAME}" 
             --artifact-type=docker 

@@ -12,15 +12,17 @@ if __name__ == "__main__":  # pragma: no cover
     line_kinds = {}
     for n in range(31, 39+1):
         line_kinds[n] = "trail"
-    for n in range(50, 71+1):
+    for n in range(69, 71+1):
         line_kinds[n] = "dashboard_pull-request"
-    for n in range(102, 108+1):
+    for n in range(104, 107+1):
         line_kinds[n] = "dashboard_lint"
-    for n in range(126, 136+1):
+    for n in range(133, 136+1):
         line_kinds[n] = "dashboard"
-    for n in range(164, 180+1):
+    for n in range(173, 175+1):
         line_kinds[n] = "dashboard_unit-test"
-    for n in range(205, 214+1):
+    for n in range(177, 180+1):
+        line_kinds[n] = "dashboard_branch-coverage"
+    for n in range(212, 214+1):
         line_kinds[n] = "dashboard_snyk"
 
     print("<div class='title'>Github Actions workflow</div>")

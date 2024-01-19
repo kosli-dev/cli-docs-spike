@@ -28,7 +28,7 @@
       }, 100);
     };
 
-    // --------------------------------
+    // ====================================================
     // When you click on an attestation
 
     const $attestations = $(".attest");
@@ -54,36 +54,7 @@
       });
     });
 
-    // --------------------------------
-    // When you click in ci-yml
-    // TODO: remove highlight on attestation
-
-    const $ci_yml_lines = $(".ci-yml .line");
-    $ci_yml_lines.click(function() {
-      const $line = $(this);
-      const classes = $line.attr('class').split(/\s+/);
-      $.each(classes, function(index, name) {
-        if (name != "line") {
-          // Highlight attestation
-          $('.attest').removeClass('lit');
-          $(`.attest[data-name='${name}']`).addClass('lit');
-          // Highlight template-yml
-          $('.template-yml .line').removeClass('lit');
-          const nodes = $(`.template-yml .${name}`);
-          nodes.addClass('lit');
-          scrollIntoView(nodes);
-        }
-      });
-      // Highlight self
-      $ci_yml_lines.removeClass('lit');
-      $line.addClass('lit');
-    });
-
-    // --------------------------------
-    // When you click in ci-yml commentary
-    // TODO...
-
-    // --------------------------------
+    // ====================================================
     // When you click in template-yml
     // TODO: remove highlight on attestation
 
@@ -92,10 +63,16 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        if (name != "line") {
+        if (name != "line" && name != "lit") {
+
           // Highlight attestation
           $('.attest').removeClass('lit');
           $(`.attest[data-name='${name}']`).addClass('lit');
+
+          // Highlight template-yml
+          $('.template-yml .line').removeClass('lit');
+          $(`.template-yml .${name}`).addClass('lit');
+
           // Highlight ci-yml
           $('.ci-yml .line').removeClass('lit');
           const nodes = $(`.ci-yml .${name}`);
@@ -103,13 +80,42 @@
           scrollIntoView(nodes);
         }
       });
-      // Highlight self
-      $template_yml_lines.removeClass('lit');
-      $line.addClass('lit');
     });
 
     // --------------------------------
     // When you click in template-yml commentary
+    // TODO...
+
+    // ====================================================
+    // When you click in ci-yml
+    // TODO: remove highlight on attestation
+
+    const $ci_yml_lines = $(".ci-yml .line");
+    $ci_yml_lines.click(function() {
+      const $line = $(this);
+      const classes = $line.attr('class').split(/\s+/);
+      $.each(classes, function(index, name) {
+        if (name != "line" && name != "lit") {
+
+          // Highlight attestation
+          $('.attest').removeClass('lit');
+          $(`.attest[data-name='${name}']`).addClass('lit');
+
+          // Highlight ci-yml
+          $('.ci-yml .line').removeClass('lit');
+          $(`.ci-yml .${name}`).addClass('lit');
+
+          // Highlight template-yml
+          $('.template-yml .line').removeClass('lit');
+          const nodes = $(`.template-yml .${name}`);
+          nodes.addClass('lit');
+          scrollIntoView(nodes);
+        }
+      });
+    });
+
+    // --------------------------------
+    // When you click in ci-yml commentary
     // TODO...
 
   });

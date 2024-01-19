@@ -16,7 +16,7 @@ if __name__ == "__main__":  # pragma: no cover
     filename = f"{path}/main.yml"
     with open(filename, 'r') as file:
         lines = [line.rstrip() for line in file.readlines()]
-        for line in lines:
+        for n, line in enumerate(lines, 1):
             # don't treat the line as jinja
             before = "<span class='line'>{% raw %}"
             after = "{% endraw %}</span>"

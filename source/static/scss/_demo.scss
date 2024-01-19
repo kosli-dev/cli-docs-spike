@@ -13,19 +13,21 @@ body {
     background-color: White;
 }
 
-.ci-yml {
+.template-yml {
+    font-size: 0.75em;
     white-space: pre;
-    width: 300px;
+    width: 500px;
     border: 1px solid LightGray;
     padding-left: 5px;
     background-color: White;
-    max-height: 400px;
+    max-height: 250px;
     overflow-y: scroll;
 }
 
-.template-yml {
+.ci-yml {
+    font-size: 0.75em;
     white-space: pre;
-    width: 300px;
+    width: 500px;
     border: 1px solid LightGray;
     padding-left: 5px;
     background-color: White;

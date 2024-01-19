@@ -168,138 +168,140 @@
   <span class='line '>{% raw %}166         with:{% endraw %}</span>
   <span class='line '>{% raw %}167           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
   <span class='line '>{% raw %}168 {% endraw %}</span>
-  <span class='line '>{% raw %}169       - name: Attest test and branch-coverage evidence to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}170         env:{% endraw %}</span>
-  <span class='line '>{% raw %}171           KOSLI_COMPLIANT: ${{ env.KOSLI_COMPLIANT }}{% endraw %}</span>
-  <span class='line '>{% raw %}172         run: |{% endraw %}</span>
-  <span class='line dashboard_unit-test'>{% raw %}173           kosli attest junit "${IMAGE_NAME}" \{% endraw %}</span>
-  <span class='line dashboard_unit-test'>{% raw %}174               --name=dashboard.unit-test \{% endraw %}</span>
-  <span class='line dashboard_unit-test'>{% raw %}175               --results-dir=test/reports/junit{% endraw %}</span>
-  <span class='line '>{% raw %}176 {% endraw %}</span>
-  <span class='line dashboard_branch-coverage'>{% raw %}177           kosli attest generic "${IMAGE_NAME}" \{% endraw %}</span>
-  <span class='line dashboard_branch-coverage'>{% raw %}178               --compliant=${KOSLI_COMPLIANT} \{% endraw %}</span>
-  <span class='line dashboard_branch-coverage'>{% raw %}179               --evidence-paths=./test/reports/evidence.json \{% endraw %}</span>
-  <span class='line dashboard_branch-coverage'>{% raw %}180               --name=dashboard.branch-coverage{% endraw %}</span>
-  <span class='line '>{% raw %}181 {% endraw %}</span>
-  <span class='line '>{% raw %}182 {% endraw %}</span>
-  <span class='line '>{% raw %}183   snyk-scan:{% endraw %}</span>
-  <span class='line '>{% raw %}184     needs: [build-image, kosli-trail]{% endraw %}</span>
-  <span class='line '>{% raw %}185     runs-on: ubuntu-latest{% endraw %}</span>
-  <span class='line '>{% raw %}186     env:{% endraw %}</span>
-  <span class='line '>{% raw %}187       KOSLI_TRAIL: ${{ needs.kosli-trail.outputs.kosli_trail }}{% endraw %}</span>
-  <span class='line '>{% raw %}188       IMAGE_NAME:  ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
-  <span class='line '>{% raw %}189       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
-  <span class='line '>{% raw %}190       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}{% endraw %}</span>
-  <span class='line '>{% raw %}191     steps:{% endraw %}</span>
-  <span class='line '>{% raw %}192       - uses: actions/checkout@v4{% endraw %}</span>
-  <span class='line '>{% raw %}193 {% endraw %}</span>
-  <span class='line '>{% raw %}194       - name: Setup Snyk{% endraw %}</span>
-  <span class='line '>{% raw %}195         uses: snyk/actions/setup@master{% endraw %}</span>
-  <span class='line '>{% raw %}196 {% endraw %}</span>
-  <span class='line '>{% raw %}197       - name: Run Snyk to check Docker image for vulnerabilities{% endraw %}</span>
-  <span class='line '>{% raw %}198         continue-on-error: true{% endraw %}</span>
-  <span class='line '>{% raw %}199         run:{% endraw %}</span>
-  <span class='line '>{% raw %}200           snyk container test ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}201             --file=Dockerfile{% endraw %}</span>
-  <span class='line '>{% raw %}202             --json-file-output=snyk.json{% endraw %}</span>
-  <span class='line '>{% raw %}203             --policy-path=.snyk{% endraw %}</span>
-  <span class='line '>{% raw %}204 {% endraw %}</span>
-  <span class='line '>{% raw %}205       - name: Setup Kosli CLI{% endraw %}</span>
-  <span class='line '>{% raw %}206         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
-  <span class='line '>{% raw %}207         with:{% endraw %}</span>
-  <span class='line '>{% raw %}208           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
-  <span class='line '>{% raw %}209 {% endraw %}</span>
-  <span class='line '>{% raw %}210       - name: Attest Snyk evidence to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}211         run:{% endraw %}</span>
-  <span class='line dashboard_snyk'>{% raw %}212           kosli attest snyk ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line dashboard_snyk'>{% raw %}213             --name=dashboard.snyk-scan{% endraw %}</span>
-  <span class='line dashboard_snyk'>{% raw %}214             --scan-results=snyk.json{% endraw %}</span>
-  <span class='line '>{% raw %}215 {% endraw %}</span>
-  <span class='line '>{% raw %}216 {% endraw %}</span>
-  <span class='line '>{% raw %}217   sdlc-control-gate:{% endraw %}</span>
-  <span class='line '>{% raw %}218     needs: [pull-request, lint, unit-tests, snyk-scan, kosli-trail, build-image]{% endraw %}</span>
-  <span class='line '>{% raw %}219     runs-on: ubuntu-latest{% endraw %}</span>
-  <span class='line '>{% raw %}220     env:{% endraw %}</span>
-  <span class='line '>{% raw %}221       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
-  <span class='line '>{% raw %}222       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
-  <span class='line '>{% raw %}223     steps:{% endraw %}</span>
-  <span class='line '>{% raw %}224       - name: Setup Kosli CLI{% endraw %}</span>
-  <span class='line '>{% raw %}225         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
-  <span class='line '>{% raw %}226         with:{% endraw %}</span>
-  <span class='line '>{% raw %}227           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
-  <span class='line '>{% raw %}228 {% endraw %}</span>
-  <span class='line '>{% raw %}229       - name: Kosli SDLC gate to short-circuit-the-flow{% endraw %}</span>
-  <span class='line '>{% raw %}230         run:{% endraw %}</span>
-  <span class='line '>{% raw %}231           kosli assert artifact ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}232 {% endraw %}</span>
-  <span class='line '>{% raw %}233 {% endraw %}</span>
-  <span class='line '>{% raw %}234   approve-deployment-to-beta:{% endraw %}</span>
-  <span class='line '>{% raw %}235     needs: [sdlc-control-gate, kosli-trail, build-image]{% endraw %}</span>
-  <span class='line '>{% raw %}236     runs-on: ubuntu-latest{% endraw %}</span>
-  <span class='line '>{% raw %}237     env:{% endraw %}</span>
-  <span class='line '>{% raw %}238       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
-  <span class='line '>{% raw %}239       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
-  <span class='line '>{% raw %}240       KOSLI_ENVIRONMENT: aws-beta{% endraw %}</span>
-  <span class='line '>{% raw %}241     steps:{% endraw %}</span>
-  <span class='line '>{% raw %}242       - uses: actions/checkout@v4{% endraw %}</span>
-  <span class='line '>{% raw %}243         with:{% endraw %}</span>
-  <span class='line '>{% raw %}244           fetch-depth: 0{% endraw %}</span>
-  <span class='line '>{% raw %}245 {% endraw %}</span>
-  <span class='line '>{% raw %}246       - name: Setup Kosli CLI{% endraw %}</span>
-  <span class='line '>{% raw %}247         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
-  <span class='line '>{% raw %}248         with:{% endraw %}</span>
-  <span class='line '>{% raw %}249           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
-  <span class='line '>{% raw %}250 {% endraw %}</span>
-  <span class='line '>{% raw %}251       - name: Attest approval of deployment to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}252         run:{% endraw %}</span>
-  <span class='line '>{% raw %}253           kosli report approval ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}254             --approver="${{ github.actor }}"{% endraw %}</span>
-  <span class='line '>{% raw %}255 {% endraw %}</span>
-  <span class='line '>{% raw %}256       - name: Attest expected deployment to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}257         run:{% endraw %}</span>
-  <span class='line '>{% raw %}258           kosli expect deployment ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}259             --description="Deployed to ${KOSLI_ENVIRONMENT} in Github Actions pipeline"{% endraw %}</span>
-  <span class='line '>{% raw %}260 {% endraw %}</span>
-  <span class='line '>{% raw %}261 {% endraw %}</span>
-  <span class='line '>{% raw %}262   deploy-to-beta:{% endraw %}</span>
-  <span class='line '>{% raw %}263     needs: [approve-deployment-to-beta, kosli-trail]{% endraw %}</span>
-  <span class='line '>{% raw %}264     uses: ./.github/workflows/sub_deploy_to_beta.yml{% endraw %}</span>
-  <span class='line '>{% raw %}265     with:{% endraw %}</span>
-  <span class='line '>{% raw %}266       IMAGE_TAG: ${{ needs.kosli-trail.outputs.image_tag }}{% endraw %}</span>
-  <span class='line '>{% raw %}267 {% endraw %}</span>
-  <span class='line '>{% raw %}268 {% endraw %}</span>
-  <span class='line '>{% raw %}269   approve-deployment-to-prod:{% endraw %}</span>
-  <span class='line '>{% raw %}270     needs: [deploy-to-beta, kosli-trail, build-image]{% endraw %}</span>
-  <span class='line '>{% raw %}271     runs-on: ubuntu-latest{% endraw %}</span>
-  <span class='line '>{% raw %}272     env:{% endraw %}</span>
-  <span class='line '>{% raw %}273       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
-  <span class='line '>{% raw %}274       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
-  <span class='line '>{% raw %}275       KOSLI_ENVIRONMENT: aws-prod{% endraw %}</span>
-  <span class='line '>{% raw %}276     steps:{% endraw %}</span>
-  <span class='line '>{% raw %}277       - uses: actions/checkout@v4{% endraw %}</span>
-  <span class='line '>{% raw %}278         with:{% endraw %}</span>
-  <span class='line '>{% raw %}279           fetch-depth: 0{% endraw %}</span>
-  <span class='line '>{% raw %}280 {% endraw %}</span>
-  <span class='line '>{% raw %}281       - name: Setup Kosli CLI{% endraw %}</span>
-  <span class='line '>{% raw %}282         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
-  <span class='line '>{% raw %}283         with:{% endraw %}</span>
-  <span class='line '>{% raw %}284           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
-  <span class='line '>{% raw %}285 {% endraw %}</span>
-  <span class='line '>{% raw %}286       - name: Attest approval of deployment to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}287         run:{% endraw %}</span>
-  <span class='line '>{% raw %}288           kosli report approval ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}289             --approver="${{ github.actor }}"{% endraw %}</span>
-  <span class='line '>{% raw %}290 {% endraw %}</span>
-  <span class='line '>{% raw %}291       - name: Attest expected deployment to Kosli{% endraw %}</span>
-  <span class='line '>{% raw %}292         run:{% endraw %}</span>
-  <span class='line '>{% raw %}293           kosli expect deployment ${IMAGE_NAME}{% endraw %}</span>
-  <span class='line '>{% raw %}294             --description="Deployed to {KOSLI_ENVIRONMENT} in Github Actions pipeline"{% endraw %}</span>
-  <span class='line '>{% raw %}295 {% endraw %}</span>
-  <span class='line '>{% raw %}296 {% endraw %}</span>
-  <span class='line '>{% raw %}297   deploy-to-prod:{% endraw %}</span>
-  <span class='line '>{% raw %}298     needs: [approve-deployment-to-prod, kosli-trail]{% endraw %}</span>
-  <span class='line '>{% raw %}299     uses: ./.github/workflows/sub_deploy_to_prod.yml{% endraw %}</span>
-  <span class='line '>{% raw %}300     with:{% endraw %}</span>
-  <span class='line '>{% raw %}301       IMAGE_TAG: ${{ needs.kosli-trail.outputs.image_tag }}{% endraw %}</span>
-  <span class='line '>{% raw %}302 {% endraw %}</span>
+  <span class='line '>{% raw %}169       - name: Attest test evidence to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}170         run:{% endraw %}</span>
+  <span class='line dashboard_unit-test'>{% raw %}171           kosli attest junit "${IMAGE_NAME}"{% endraw %}</span>
+  <span class='line dashboard_unit-test'>{% raw %}172               --name=dashboard.unit-test{% endraw %}</span>
+  <span class='line dashboard_unit-test'>{% raw %}173               --results-dir=test/reports/junit{% endraw %}</span>
+  <span class='line '>{% raw %}174 {% endraw %}</span>
+  <span class='line '>{% raw %}175       - name: Attest branch-coverage evidence to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}176         env:{% endraw %}</span>
+  <span class='line '>{% raw %}177           KOSLI_COMPLIANT: ${{ env.KOSLI_COMPLIANT }}{% endraw %}</span>
+  <span class='line '>{% raw %}178         run:{% endraw %}</span>
+  <span class='line dashboard_branch-coverage'>{% raw %}179           kosli attest generic "${IMAGE_NAME}"{% endraw %}</span>
+  <span class='line dashboard_branch-coverage'>{% raw %}180               --compliant=${KOSLI_COMPLIANT}{% endraw %}</span>
+  <span class='line dashboard_branch-coverage'>{% raw %}181               --evidence-paths=./test/reports/evidence.json{% endraw %}</span>
+  <span class='line dashboard_branch-coverage'>{% raw %}182               --name=dashboard.branch-coverage{% endraw %}</span>
+  <span class='line '>{% raw %}183 {% endraw %}</span>
+  <span class='line '>{% raw %}184 {% endraw %}</span>
+  <span class='line '>{% raw %}185   snyk-scan:{% endraw %}</span>
+  <span class='line '>{% raw %}186     needs: [build-image, kosli-trail]{% endraw %}</span>
+  <span class='line '>{% raw %}187     runs-on: ubuntu-latest{% endraw %}</span>
+  <span class='line '>{% raw %}188     env:{% endraw %}</span>
+  <span class='line '>{% raw %}189       KOSLI_TRAIL: ${{ needs.kosli-trail.outputs.kosli_trail }}{% endraw %}</span>
+  <span class='line '>{% raw %}190       IMAGE_NAME:  ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
+  <span class='line '>{% raw %}191       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
+  <span class='line '>{% raw %}192       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}{% endraw %}</span>
+  <span class='line '>{% raw %}193     steps:{% endraw %}</span>
+  <span class='line '>{% raw %}194       - uses: actions/checkout@v4{% endraw %}</span>
+  <span class='line '>{% raw %}195 {% endraw %}</span>
+  <span class='line '>{% raw %}196       - name: Setup Snyk{% endraw %}</span>
+  <span class='line '>{% raw %}197         uses: snyk/actions/setup@master{% endraw %}</span>
+  <span class='line '>{% raw %}198 {% endraw %}</span>
+  <span class='line '>{% raw %}199       - name: Run Snyk to check Docker image for vulnerabilities{% endraw %}</span>
+  <span class='line '>{% raw %}200         continue-on-error: true{% endraw %}</span>
+  <span class='line '>{% raw %}201         run:{% endraw %}</span>
+  <span class='line '>{% raw %}202           snyk container test ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}203             --file=Dockerfile{% endraw %}</span>
+  <span class='line '>{% raw %}204             --json-file-output=snyk.json{% endraw %}</span>
+  <span class='line '>{% raw %}205             --policy-path=.snyk{% endraw %}</span>
+  <span class='line '>{% raw %}206 {% endraw %}</span>
+  <span class='line '>{% raw %}207       - name: Setup Kosli CLI{% endraw %}</span>
+  <span class='line '>{% raw %}208         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
+  <span class='line '>{% raw %}209         with:{% endraw %}</span>
+  <span class='line '>{% raw %}210           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
+  <span class='line '>{% raw %}211 {% endraw %}</span>
+  <span class='line '>{% raw %}212       - name: Attest Snyk evidence to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}213         run:{% endraw %}</span>
+  <span class='line dashboard_snyk'>{% raw %}214           kosli attest snyk ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line dashboard_snyk'>{% raw %}215             --name=dashboard.snyk-scan{% endraw %}</span>
+  <span class='line dashboard_snyk'>{% raw %}216             --scan-results=snyk.json{% endraw %}</span>
+  <span class='line '>{% raw %}217 {% endraw %}</span>
+  <span class='line '>{% raw %}218 {% endraw %}</span>
+  <span class='line '>{% raw %}219   sdlc-control-gate:{% endraw %}</span>
+  <span class='line '>{% raw %}220     needs: [pull-request, lint, unit-tests, snyk-scan, kosli-trail, build-image]{% endraw %}</span>
+  <span class='line '>{% raw %}221     runs-on: ubuntu-latest{% endraw %}</span>
+  <span class='line '>{% raw %}222     env:{% endraw %}</span>
+  <span class='line '>{% raw %}223       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
+  <span class='line '>{% raw %}224       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
+  <span class='line '>{% raw %}225     steps:{% endraw %}</span>
+  <span class='line '>{% raw %}226       - name: Setup Kosli CLI{% endraw %}</span>
+  <span class='line '>{% raw %}227         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
+  <span class='line '>{% raw %}228         with:{% endraw %}</span>
+  <span class='line '>{% raw %}229           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
+  <span class='line '>{% raw %}230 {% endraw %}</span>
+  <span class='line '>{% raw %}231       - name: Kosli SDLC gate to short-circuit-the-flow{% endraw %}</span>
+  <span class='line '>{% raw %}232         run:{% endraw %}</span>
+  <span class='line '>{% raw %}233           kosli assert artifact ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}234 {% endraw %}</span>
+  <span class='line '>{% raw %}235 {% endraw %}</span>
+  <span class='line '>{% raw %}236   approve-deployment-to-beta:{% endraw %}</span>
+  <span class='line '>{% raw %}237     needs: [sdlc-control-gate, kosli-trail, build-image]{% endraw %}</span>
+  <span class='line '>{% raw %}238     runs-on: ubuntu-latest{% endraw %}</span>
+  <span class='line '>{% raw %}239     env:{% endraw %}</span>
+  <span class='line '>{% raw %}240       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
+  <span class='line '>{% raw %}241       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
+  <span class='line '>{% raw %}242       KOSLI_ENVIRONMENT: aws-beta{% endraw %}</span>
+  <span class='line '>{% raw %}243     steps:{% endraw %}</span>
+  <span class='line '>{% raw %}244       - uses: actions/checkout@v4{% endraw %}</span>
+  <span class='line '>{% raw %}245         with:{% endraw %}</span>
+  <span class='line '>{% raw %}246           fetch-depth: 0{% endraw %}</span>
+  <span class='line '>{% raw %}247 {% endraw %}</span>
+  <span class='line '>{% raw %}248       - name: Setup Kosli CLI{% endraw %}</span>
+  <span class='line '>{% raw %}249         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
+  <span class='line '>{% raw %}250         with:{% endraw %}</span>
+  <span class='line '>{% raw %}251           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
+  <span class='line '>{% raw %}252 {% endraw %}</span>
+  <span class='line '>{% raw %}253       - name: Attest approval of deployment to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}254         run:{% endraw %}</span>
+  <span class='line '>{% raw %}255           kosli report approval ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}256             --approver="${{ github.actor }}"{% endraw %}</span>
+  <span class='line '>{% raw %}257 {% endraw %}</span>
+  <span class='line '>{% raw %}258       - name: Attest expected deployment to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}259         run:{% endraw %}</span>
+  <span class='line '>{% raw %}260           kosli expect deployment ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}261             --description="Deployed to ${KOSLI_ENVIRONMENT} in Github Actions pipeline"{% endraw %}</span>
+  <span class='line '>{% raw %}262 {% endraw %}</span>
+  <span class='line '>{% raw %}263 {% endraw %}</span>
+  <span class='line '>{% raw %}264   deploy-to-beta:{% endraw %}</span>
+  <span class='line '>{% raw %}265     needs: [approve-deployment-to-beta, kosli-trail]{% endraw %}</span>
+  <span class='line '>{% raw %}266     uses: ./.github/workflows/sub_deploy_to_beta.yml{% endraw %}</span>
+  <span class='line '>{% raw %}267     with:{% endraw %}</span>
+  <span class='line '>{% raw %}268       IMAGE_TAG: ${{ needs.kosli-trail.outputs.image_tag }}{% endraw %}</span>
+  <span class='line '>{% raw %}269 {% endraw %}</span>
+  <span class='line '>{% raw %}270 {% endraw %}</span>
+  <span class='line '>{% raw %}271   approve-deployment-to-prod:{% endraw %}</span>
+  <span class='line '>{% raw %}272     needs: [deploy-to-beta, kosli-trail, build-image]{% endraw %}</span>
+  <span class='line '>{% raw %}273     runs-on: ubuntu-latest{% endraw %}</span>
+  <span class='line '>{% raw %}274     env:{% endraw %}</span>
+  <span class='line '>{% raw %}275       IMAGE_NAME:        ${{ needs.kosli-trail.outputs.image_name }}{% endraw %}</span>
+  <span class='line '>{% raw %}276       KOSLI_FINGERPRINT: ${{ needs.build-image.outputs.kosli_fingerprint }}{% endraw %}</span>
+  <span class='line '>{% raw %}277       KOSLI_ENVIRONMENT: aws-prod{% endraw %}</span>
+  <span class='line '>{% raw %}278     steps:{% endraw %}</span>
+  <span class='line '>{% raw %}279       - uses: actions/checkout@v4{% endraw %}</span>
+  <span class='line '>{% raw %}280         with:{% endraw %}</span>
+  <span class='line '>{% raw %}281           fetch-depth: 0{% endraw %}</span>
+  <span class='line '>{% raw %}282 {% endraw %}</span>
+  <span class='line '>{% raw %}283       - name: Setup Kosli CLI{% endraw %}</span>
+  <span class='line '>{% raw %}284         uses: kosli-dev/setup-cli-action@v2{% endraw %}</span>
+  <span class='line '>{% raw %}285         with:{% endraw %}</span>
+  <span class='line '>{% raw %}286           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
+  <span class='line '>{% raw %}287 {% endraw %}</span>
+  <span class='line '>{% raw %}288       - name: Attest approval of deployment to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}289         run:{% endraw %}</span>
+  <span class='line '>{% raw %}290           kosli report approval ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}291             --approver="${{ github.actor }}"{% endraw %}</span>
+  <span class='line '>{% raw %}292 {% endraw %}</span>
+  <span class='line '>{% raw %}293       - name: Attest expected deployment to Kosli{% endraw %}</span>
+  <span class='line '>{% raw %}294         run:{% endraw %}</span>
+  <span class='line '>{% raw %}295           kosli expect deployment ${IMAGE_NAME}{% endraw %}</span>
+  <span class='line '>{% raw %}296             --description="Deployed to {KOSLI_ENVIRONMENT} in Github Actions pipeline"{% endraw %}</span>
+  <span class='line '>{% raw %}297 {% endraw %}</span>
+  <span class='line '>{% raw %}298 {% endraw %}</span>
+  <span class='line '>{% raw %}299   deploy-to-prod:{% endraw %}</span>
+  <span class='line '>{% raw %}300     needs: [approve-deployment-to-prod, kosli-trail]{% endraw %}</span>
+  <span class='line '>{% raw %}301     uses: ./.github/workflows/sub_deploy_to_prod.yml{% endraw %}</span>
+  <span class='line '>{% raw %}302     with:{% endraw %}</span>
+  <span class='line '>{% raw %}303       IMAGE_TAG: ${{ needs.kosli-trail.outputs.image_tag }}{% endraw %}</span>
+  <span class='line '>{% raw %}304 {% endraw %}</span>
 </div>

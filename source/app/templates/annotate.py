@@ -36,6 +36,6 @@ if __name__ == "__main__":  # pragma: no cover
             # don't treat the line as jinja
             before = f"<span class='line {kind}'>{{% raw %}}"
             after = "{% endraw %}</span>"
-            print(f"  {before}{number} {line}{after}")
+            print(f"  {before}<span class='number'>{number}</span> {line}{after}")
 
     print("</div>")

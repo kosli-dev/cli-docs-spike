@@ -55,23 +55,7 @@
     <tr>
       <td>
         <div class="filename">.kosli.yml</div>
-        <div class="template-yml">
-          <span class="line"                       >version: 1</span>
-          <span class="line"                       ></span>
-          <span class="line"                       >trail:</span>
-          <span class="line"                       >  artifacts:</span>
-          <span class="line dashboard"             >    --name: dashboard</span>
-          <span class="line"                       >    attestations:</span>
-          <span class="line dashboard_lint"        >      --name: lint</span>
-          <span class="line dashboard_lint"        >        type: generic</span>
-          <span class="line dashboard_pull-request">      --name: pull-request</span>
-          <span class="line dashboard_pull-request">        type: pull_request</span>
-          <span class="line dashboard_unit-test"   >      --name: unit-test</span>
-          <span class="line dashboard_unit-test"   >        type: junit</span>
-          <span class="line dashboard_snyk"        >      --name: snyk</span>
-          <span class="line dashboard_snyk"        >        type: snyk</span>
-          <span class="line"                       ></span>
-        </div>
+        {% include 'template-yml.html' %}
       </td>
       <td>
         commentary here...
@@ -81,41 +65,7 @@
     <tr>
       <td>
         <div class="filename">Github Actions workflow</div>
-        <div class="ci-yml">
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line dashboard_pull-request">line for PR</span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line dashboard_lint"        >line for lint</span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line dashboard"             >line for dashboard</span>
-          <span class="line dashboard"             >line for dashboard</span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line dashboard_unit-test"   >line for UT 1</span>
-          <span class="line dashboard_unit-test"   >line for UT 2</span>
-          <span class="line dashboard_unit-test"   >line for UT 2</span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line dashboard_snyk"        >line for snyk</span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-          <span class="line"                       ></span>
-        </div>
+        {% include 'ci-yml.html' %}
       </td>
       <td>
         commentary here...

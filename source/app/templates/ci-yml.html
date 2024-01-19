@@ -30,14 +30,14 @@
   <span class='line '>{% raw %} 28         with:{% endraw %}</span>
   <span class='line '>{% raw %} 29           version: ${{ vars.KOSLI_CLI_VERSION }}{% endraw %}</span>
   <span class='line '>{% raw %} 30 {% endraw %}</span>
-  <span class='line trail'>{% raw %} 31       - name: Create Kosli Flow{% endraw %}</span>
-  <span class='line trail'>{% raw %} 32         run:{% endraw %}</span>
-  <span class='line trail'>{% raw %} 33           kosli create flow "${{ env.KOSLI_FLOW }}"{% endraw %}</span>
-  <span class='line trail'>{% raw %} 34             --description="Diff files from two traffic-lights"{% endraw %}</span>
-  <span class='line trail'>{% raw %} 35             --template-file=.kosli.yml{% endraw %}</span>
-  <span class='line trail'>{% raw %} 36 {% endraw %}</span>
-  <span class='line trail'>{% raw %} 37       - name: Begin Kosli Trail{% endraw %}</span>
-  <span class='line trail'>{% raw %} 38         run:{% endraw %}</span>
+  <span class='line '>{% raw %} 31       - name: Create Kosli Flow{% endraw %}</span>
+  <span class='line '>{% raw %} 32         run:{% endraw %}</span>
+  <span class='line '>{% raw %} 33           kosli create flow "${{ env.KOSLI_FLOW }}"{% endraw %}</span>
+  <span class='line '>{% raw %} 34             --description="Diff files from two traffic-lights"{% endraw %}</span>
+  <span class='line '>{% raw %} 35             --template-file=.kosli.yml{% endraw %}</span>
+  <span class='line '>{% raw %} 36 {% endraw %}</span>
+  <span class='line '>{% raw %} 37       - name: Begin Kosli Trail{% endraw %}</span>
+  <span class='line '>{% raw %} 38         run:{% endraw %}</span>
   <span class='line trail'>{% raw %} 39           kosli begin trail "${GITHUB_SHA}"{% endraw %}</span>
   <span class='line '>{% raw %} 40 {% endraw %}</span>
   <span class='line '>{% raw %} 41       - name: Set outputs{% endraw %}</span>

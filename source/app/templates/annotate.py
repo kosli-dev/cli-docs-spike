@@ -10,20 +10,18 @@ if __name__ == "__main__":  # pragma: no cover
     #     exit(1)
 
     line_kinds = {}
-    for n in range(31, 39+1):
-        line_kinds[n] = "trail"
-    for n in range(69, 71+1):
-        line_kinds[n] = "dashboard_pull-request"
-    for n in range(104, 107+1):
-        line_kinds[n] = "dashboard_lint"
-    for n in range(133, 136+1):
-        line_kinds[n] = "dashboard"
-    for n in range(171, 173+1):
-        line_kinds[n] = "dashboard_unit-test"
-    for n in range(179, 182+1):
-        line_kinds[n] = "dashboard_branch-coverage"
-    for n in range(214, 216+1):
-        line_kinds[n] = "dashboard_snyk"
+    data = {
+        (39, 1): "trail",
+        (69, 3): "dashboard_pull-request",
+        (104, 4): "dashboard_lint",
+        (133, 4): "dashboard",
+        (171, 3): "dashboard_unit-test",
+        (179, 4): "dashboard_branch-coverage",
+        (214, 3): "dashboard_snyk"
+    }
+    for (start, count), kind in data.items():
+        for n in range(start, start+count):
+            line_kinds[n] = kind
 
     print("<div class='title'>Github Actions workflow</div>")
     print("<div class='ci-yml'>")

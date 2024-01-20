@@ -18,29 +18,34 @@ if __name__ == "__main__":  # pragma: no cover
 
     line_kinds = {}
     for (start, count), kind in m.data["lines"].items():
-        for n in range(start, start+count):
+        for n in range(start, start + count):
             line_kinds[n] = kind
 
-    filename = f"{dir_path}/{m.data['filename']}"
-    with open(filename, 'r') as file:
-        lines = [line.rstrip() for line in file.readlines()]
+    src_filename = f"{dir_path}/{m.data['src_filename']}"
+    with open(src_filename, 'r') as src_file:
+        src_lines = [src_line.rstrip() for src_line in src_file.readlines()]
 
-    max_length = max(len(line) for line in lines)
+    max_src_line_length = max(len(src_line) for src_line in src_lines)
 
     css_title = m.data['css_title']
     css_class = m.data['css_class']
 
-    print(f"<div class='title'>{css_title}</div>")
-    print(f"<div class='{css_class}'>")
-
-    for n, line in enumerate(lines, 1):
-        line = line.ljust(max_length+5)
+    dst_lines = [
+        f"<div class='title'>{css_title}</div>",
+        f"<div class='{css_class}'>"
+    ]
+    for n, src_line in enumerate(src_lines, 1):
+        dst_line = src_line.ljust(max_src_line_length+5)
         number = "%3s" % n
         kind = line_kinds.get(n, "")
         sn = "n" if kind == "" else "s"  # Something or Nothing
-        # don't treat the line as jinja
+        # don't treat dst_line as jinja
         before = f"<span class='line {sn} {kind}'>{{% raw %}}"
         after = "{% endraw %}</span>"
-        print(f"  {before}<span class='number'> {number}</span> {line}{after}")
+        dst_lines.append(f"  {before}<span class='number'> {number}</span> {dst_line}{after}")
+    dst_lines.append("</div>")
 
-    print("</div>")
+    dst_filename = f"{dir_path}/{m.data['dst_filename']}"
+    with open(dst_filename, "w") as dst_file:
+        for dst_line in dst_lines:
+            dst_file.write(dst_line + "\n")

@@ -11,5 +11,6 @@ data = {
     },
     "css_title": "Github Actions workflow",
     "css_class": "ci-yml",
-    "filename": "main.yml"
+    "src_filename": "main.yml",
+    "dst_filename": "ci-yml.html"
 }

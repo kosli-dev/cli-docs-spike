@@ -11,6 +11,7 @@ Hovering over content auto-scrolls related/explanatory content in other dom elem
 Note:
 - Has minimal CSS styling.
 - Has no actual commentary in the lhs panes.
+- Is commentary better on the rhs?
 - Requires docker, docker-compose, bash.  
 
 To try it out:

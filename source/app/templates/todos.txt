@@ -1,6 +1,4 @@
 
-don't scroll the original element being clicked on
-
 change to scrollover instead of click?
 
 ----------------------------------------

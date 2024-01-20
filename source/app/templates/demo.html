@@ -77,13 +77,15 @@
             $('.attest').removeClass('lit');
             $(`.attest[data-name='${name}']`).addClass('lit');
 
-            const highlight = (name, kind) => {
-              console.log(`highlight(${name}, ${kind})`);
-              $(`.${kind} .line`).removeClass('lit');
-              const nodes = $(`.${kind} .${name}`);
+            const highlight = (name, inner_kind) => {
+              console.log(`highlight(${name}, ${inner_kind})`);
+              $(`.${inner_kind} .line`).removeClass('lit');
+              const nodes = $(`.${inner_kind} .${name}`);
               console.log(`count=${nodes.length}`);
               nodes.addClass('lit');
-              scrollIntoView(nodes);
+              if (inner_kind != kind) {
+                scrollIntoView(nodes);
+              }
             };
 
             highlight(name, 'template-yml');

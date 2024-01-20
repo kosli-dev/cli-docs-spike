@@ -24,3 +24,8 @@ scripts_dir()
   echo "${repo_home}/scripts"
 }
 
+d()
+{
+  ./source/app/templates/build-cy-yml-html.sh
+  demo
+}

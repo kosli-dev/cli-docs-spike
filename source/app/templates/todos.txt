@@ -1,7 +1,4 @@
 
-change to scrollover instead of click?
-
-----------------------------------------
 # annotate.py
 
 make data come in as a parameter somehow. dynamic import?

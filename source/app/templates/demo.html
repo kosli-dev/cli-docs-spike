@@ -38,7 +38,7 @@
 
     $attestations.each(function() {
       const $attest = $(this);
-      $attest.click(function() {
+      $attest.hover(function() {
 
         const highlight = (name, kind) => {
               $(`.${kind} .line`).removeClass('lit');
@@ -65,7 +65,7 @@
     // When you click yml/commentary
 
     const setupHandler = (kind) => {
-      $(`.${kind} .line`).click(function() {
+      $(`.${kind} .line`).hover(function() {
         const $line = $(this);
         const classes = $line.attr('class').split(/\s+/);
         $.each(classes, function(_index, name) {

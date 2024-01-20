@@ -26,6 +26,6 @@ scripts_dir()
 
 d()
 {
-  ./source/app/templates/build-cy-yml-html.sh
+  ./source/app/templates/build-yml-html.sh
   demo
 }

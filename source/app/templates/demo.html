@@ -21,6 +21,7 @@
   $(window).ready(()=> {
 
     const scrollIntoView = (nodes) => {
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
       if (nodes.length > 0) {
         const $first = nodes.first();
         // Do not use {behavior:"smooth"}) - it fails with multiple scrollIntoView calls
@@ -63,8 +64,8 @@
     // ====================================================
     // When you click yml/commentary
 
-    const setupHandler = ($nodes) => {
-      $nodes.click(function() {
+    const setupHandler = (kind) => {
+      $(`.${kind} .line`).click(function() {
         const $line = $(this);
         const classes = $line.attr('class').split(/\s+/);
         $.each(classes, function(_index, name) {
@@ -94,11 +95,11 @@
       });
     };
 
-    setupHandler($(".template-yml .line"));
-    setupHandler($(".template-yml-commentary .line"));
+    setupHandler("template-yml");
+    setupHandler("template-yml-commentary");
 
-    setupHandler($(".ci-yml .line"));
-    setupHandler($(".ci-yml-commentary .line"));
+    setupHandler("ci-yml");
+    setupHandler("ci-yml-commentary");
 
   });
 </script>

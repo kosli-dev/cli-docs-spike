@@ -10,4 +10,4 @@ $ d
 If port 80 is available, an html page will load in your default browser.  
 Hover and click over content to auto scroll related content into view.
 
-[Screenshot](docs/screenshot.png)
+![Screenshot](https://github.com/kosli-dev/cli-docs-spike/main/docs/screenshot.png?raw=true)

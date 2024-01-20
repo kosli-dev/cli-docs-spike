@@ -21,13 +21,13 @@
   $(window).ready(()=> {
 
     const scrollIntoView = (nodes) => {
-      //setTimeout(() => {
       if (nodes.length > 0) {
         const $first = nodes.first();
-        $first.get(0).scrollIntoView({behavior:"smooth", block:"center"});
-        //$first.scrollLeft(0); // BUG: Not working
+        // Do not use {behavior:"smooth"}) - it fails with multiple scrollIntoView calls
+        // Eg see https://bugs.chromium.org/p/chromium/issues/detail?id=1142270
+        $first.get(0).scrollIntoView({behavior:"instant", block:"center"});
+        $first.scrollLeft(0); // BUG: Not working
       }
-      //}, 100);
     };
 
     // ====================================================

@@ -1,12 +1,4 @@
 
-BUG: if you click on a ci-yml entry a few times, the 2nd/3rd time it scrolls out of view!
-
-BUG: if you all the 3rd  highlight('ci-yml-commentary'); call
-then the 2nd highlight('ci-yml'); seems to break
-
-BUG: if you click on the leftmost attestation and then the
-rightmost attestation, the latter does scroll into view in .kosli.yml
-
 change to scrollover instead of click?
 
 ----------------------------------------

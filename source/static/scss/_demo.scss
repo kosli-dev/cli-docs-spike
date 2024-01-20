@@ -1,13 +1,4 @@
 
-html {
-  scroll-behavior: smooth;
-}
-@media(prefers-reduced-motion) {
-  html {
-	  scroll-behavior: auto;
-	}
-}
-
 body {
     margin-left: 45px;
     background: khaki;

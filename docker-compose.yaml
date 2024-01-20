@@ -21,4 +21,3 @@ services:
     user: xy
     volumes:
       - ./source:${XY_CONTAINER_ROOT_DIR}/source:ro
-      - ./test:${XY_CONTAINER_ROOT_DIR}/test:ro

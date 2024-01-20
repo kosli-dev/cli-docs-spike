@@ -13,10 +13,12 @@ Note:
 - Has minimal actual commentary in the lhs panes
 - Requires docker, docker-compose, bash.  
 
-After cloning the repo:
-```
-$ source scripts/shortcuts.sh
-$ d
+To try it out:
+```shell
+git clone git@github.com:kosli-dev/cli-docs-spike.git
+cd cli-docs-spike
+source scripts/shortcuts.sh
+d
 ```
 If port 80 is available, an html page will load in your default browser.
 

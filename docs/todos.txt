@@ -1,7 +1,8 @@
 
+The commentary CSS needs to _not_ have white-space:pre;
+
+Will need more Javascript if there is more than one instance of this on a single HTML page.
+
 Maybe highlight line numbers that have special hover behaviour?
 
 Write some commentary.
-
-Will need more Javascript if there is more than one instance of
-this on a single HTML page.

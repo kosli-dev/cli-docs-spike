@@ -1,4 +1,12 @@
 
+Always showing scrollbars doesnt work for yml (black background)
+
+Maybe highlight line numbers that have special hover behaviour?
+
+Have a single scroll behaviour:"smooth" for the partner dom element
+eg hover ci-yml-commentary and smooth for ci-yml
+eg hover ci-yml and smooth for ci-yml-commentary
+
 # annotate.py
 
 make data come in as a parameter somehow. dynamic import?

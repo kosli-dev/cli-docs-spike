@@ -9,25 +9,33 @@ if __name__ == "__main__":  # pragma: no cover
     #     print("Usage: generate_new_api_key_for_user <user_name> [confirm]")
     #     exit(1)
 
-    line_kinds = {}
     data = {
-        (39, 1): "trail",
-        (70, 3): "dashboard_pull-request",
-        (105, 4): "dashboard_lint",
-        (134, 4): "dashboard",
-        (171, 3): "dashboard_unit-test",
-        (179, 4): "dashboard_branch-coverage",
-        (214, 3): "dashboard_snyk"
+        "lines": {
+            (39, 1): "trail",
+            (70, 3): "dashboard_pull-request",
+            (105, 4): "dashboard_lint",
+            (134, 4): "dashboard",
+            (171, 3): "dashboard_unit-test",
+            (179, 4): "dashboard_branch-coverage",
+            (214, 3): "dashboard_snyk",
+        },
+        "css_title": "Github Actions workflow",
+        "css_class": "ci-yml",
+        "filename": "main.yml"
     }
-    for (start, count), kind in data.items():
+
+    line_kinds = {}
+    for (start, count), kind in data["lines"].items():
         for n in range(start, start+count):
             line_kinds[n] = kind
 
-    print("<div class='title'>Github Actions workflow</div>")
-    print("<div class='ci-yml'>")
+    css_title = data['css_title']
+    css_class = data['css_class']
+    print(f"<div class='title'>{css_title}</div>")
+    print(f"<div class='{css_class}'>")
 
     path = os.path.abspath(os.path.dirname(__file__))
-    filename = f"{path}/main.yml"
+    filename = f"{path}/{data['filename']}"
     with open(filename, 'r') as file:
         lines = [line.rstrip() for line in file.readlines()]
 

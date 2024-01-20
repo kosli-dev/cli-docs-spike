@@ -20,13 +20,14 @@
 <script type="text/javascript">
   $(window).ready(()=> {
 
-    const scrollIntoView = (nodes) => {
+    const scrollIntoView = (nodes, behaviour) => {
       // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
       if (nodes.length > 0) {
         const $first = nodes.first();
-        // Do not use {behavior:"smooth"}) - it fails with multiple scrollIntoView calls
+        // NOTE: Multiple scrollIntoView(..., behaviour=="smooth") calls cause problems.
         // Eg see https://bugs.chromium.org/p/chromium/issues/detail?id=1142270
-        $first.get(0).scrollIntoView({behavior:"instant", block:"center"});
+        // The calling code must pass only one behaviour="smooth"
+        $first.get(0).scrollIntoView({behavior:behaviour, block:"center"});
         $first.scrollLeft(0); // BUG: Not working
       }
     };
@@ -44,7 +45,7 @@
               $(`.${kind} .line`).removeClass('lit');
               const nodes = $(`.${kind} .${name}`);
               nodes.each(function() { $(this).addClass('lit'); });
-              scrollIntoView(nodes);
+              scrollIntoView(nodes, "instant");
         };
 
         // Highlight only that attestation
@@ -64,7 +65,8 @@
     // ====================================================
     // When you click yml/commentary
 
-    const setupHandler = (kind) => {
+    const setupHandler = (dee, dum) => {
+      const kind = dee;
       $(`.${kind} .line`).hover(function() {
         const $line = $(this);
         const classes = $line.attr('class').split(/\s+/);
@@ -84,7 +86,8 @@
               console.log(`count=${nodes.length}`);
               nodes.addClass('lit');
               if (inner_kind != kind) {
-                scrollIntoView(nodes);
+                const behaviour = (inner_kind == dum) ? "smooth" : "instant";
+                scrollIntoView(nodes, behaviour);
               }
             };
 
@@ -97,11 +100,11 @@
       });
     };
 
-    setupHandler("template-yml");
-    setupHandler("template-yml-commentary");
+    setupHandler("template-yml", "template-yml-commentary");
+    setupHandler("template-yml-commentary", "template-yml");
 
-    setupHandler("ci-yml");
-    setupHandler("ci-yml-commentary");
+    setupHandler("ci-yml", "ci-yml-commentary");
+    setupHandler("ci-yml-commentary", "ci-yml");
 
   });
 </script>

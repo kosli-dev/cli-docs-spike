@@ -8,7 +8,8 @@ Hovering over content auto-scrolls related/explanatory content in other dom elem
 - Bottom section is Github Actions `.yml` workflow (rhs) and pane for commentary (lhs)
 ![Screenshot](https://github.com/kosli-dev/cli-docs-spike/blob/main/docs/ci-workflow.png?raw=true)
 
-Note:
+Notes:
+- The yml file views are generated from actual yml files.
 - Has minimal CSS styling.
 - Has no actual commentary in the lhs panes.
 - Is commentary better on the rhs?
@@ -22,4 +23,3 @@ source scripts/shortcuts.sh
 d
 ```
 If port 80 is available, an html page will load in your default browser.
-

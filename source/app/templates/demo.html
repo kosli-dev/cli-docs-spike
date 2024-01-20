@@ -24,7 +24,7 @@
       setTimeout(() => {
         const $first = nodes.first();
         $first.get(0).scrollIntoView({behavior:"smooth", block:"center"});
-        $first.scrollLeft(0); // Not working
+        $first.scrollLeft(0); // BUG: Not working
       }, 100);
     };
 
@@ -49,8 +49,10 @@
         $attest.addClass('lit');
 
         // And the lines in the yml files for that attestation
-        highlight('template-yml'); // For some unknown reason this call must come before...
-        highlight('ci-yml');       // ...this call
+        // BUG: Adding the 3rd call breaks the second one
+        highlight('template-yml');
+        highlight('ci-yml');
+        //highlight('ci-yml-commentary');
       });
     });
 

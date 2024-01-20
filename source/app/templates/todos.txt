@@ -1,4 +1,6 @@
 
+BUG: if you click on a ci-yml entry a few times, the 2nd/3rd time it scrolls out of view!
+
 BUG: if you all the 3rd  highlight('ci-yml-commentary'); call
 then the 2nd highlight('ci-yml'); seems to break
 

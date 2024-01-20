@@ -22,102 +22,83 @@
 
     const scrollIntoView = (nodes) => {
       //setTimeout(() => {
+      if (nodes.length > 0) {
         const $first = nodes.first();
         $first.get(0).scrollIntoView({behavior:"smooth", block:"center"});
         //$first.scrollLeft(0); // BUG: Not working
+      }
       //}, 100);
     };
 
     // ====================================================
     // When you click on an attestation
 
-    const highlight = (name, kind) => {
-          const nodes = $(`.${kind} .${name}`);
-          $(`.${kind} .line`).removeClass('lit');
-          nodes.each(function() { $(this).addClass('lit'); });
-          scrollIntoView(nodes);
-    };
-
     const $attestations = $(".attest");
 
     $attestations.each(function() {
       const $attest = $(this);
       $attest.click(function() {
-        const name = $attest.data("name");
+
+        const highlight = (name, kind) => {
+              $(`.${kind} .line`).removeClass('lit');
+              const nodes = $(`.${kind} .${name}`);
+              nodes.each(function() { $(this).addClass('lit'); });
+              scrollIntoView(nodes);
+        };
 
         // Highlight only that attestation
         $attestations.removeClass('lit');
         $attest.addClass('lit');
 
-        // And the lines in the yml files for that attestation
+        // And the lines in the yml/commentary for that attestation
+        const name = $attest.data("name");
+
         highlight(name, 'template-yml');
+        highlight(name, 'template-yml-commentary');
         highlight(name, 'ci-yml');
-        //highlight(name, 'ci-yml-commentary'); BUG
+        highlight(name, 'ci-yml-commentary');
       });
     });
 
     // ====================================================
-    // When you click in template-yml
-    // TODO: remove highlight on attestation
+    // When you click yml/commentary
 
-    const $template_yml_lines = $(".template-yml .line");
-    $template_yml_lines.click(function() {
-      const $line = $(this);
-      const classes = $line.attr('class').split(/\s+/);
-      $.each(classes, function(index, name) {
-        if (!["line", "lit", "n"].includes(name)) {
+    const setupHandler = ($nodes) => {
+      $nodes.click(function() {
+        const $line = $(this);
+        const classes = $line.attr('class').split(/\s+/);
+        $.each(classes, function(_index, name) {
+          console.log(`name=${name}`);
+          if (!["line", "lit", "n"].includes(name)) {
+            console.log(`name=${name} inside the if`);
 
-          // Highlight attestation
-          $('.attest').removeClass('lit');
-          $(`.attest[data-name='${name}']`).addClass('lit');
+            // Highlight attestation
+            $('.attest').removeClass('lit');
+            $(`.attest[data-name='${name}']`).addClass('lit');
 
-          // Highlight template-yml
-          $('.template-yml .line').removeClass('lit');
-          $(`.template-yml .${name}`).addClass('lit');
+            const highlight = (name, kind) => {
+              console.log(`highlight(${name}, ${kind})`);
+              $(`.${kind} .line`).removeClass('lit');
+              const nodes = $(`.${kind} .${name}`);
+              console.log(`count=${nodes.length}`);
+              nodes.addClass('lit');
+              scrollIntoView(nodes);
+            };
 
-          // Highlight ci-yml
-          $('.ci-yml .line').removeClass('lit');
-          const nodes = $(`.ci-yml .${name}`);
-          nodes.addClass('lit');
-          scrollIntoView(nodes);
-        }
+            highlight(name, 'template-yml');
+            highlight(name, 'template-yml-commentary');
+            highlight(name, 'ci-yml');
+            highlight(name, 'ci-yml-commentary');
+          }
+        });
       });
-    });
+    };
 
-    // --------------------------------
-    // When you click in template-yml commentary
-    // TODO...
+    setupHandler($(".template-yml .line"));
+    setupHandler($(".template-yml-commentary .line"));
 
-    // ====================================================
-    // When you click in ci-yml
-    // TODO: remove highlight on attestation
-
-    const $ci_yml_lines = $(".ci-yml .line");
-    $ci_yml_lines.click(function() {
-      const $line = $(this);
-      const classes = $line.attr('class').split(/\s+/);
-      $.each(classes, function(index, name) {
-        if (!["line", "lit", "n"].includes(name)) {
-          // Highlight attestation
-          $('.attest').removeClass('lit');
-          $(`.attest[data-name='${name}']`).addClass('lit');
-
-          // Highlight ci-yml
-          $('.ci-yml .line').removeClass('lit');
-          $(`.ci-yml .${name}`).addClass('lit');
-
-          // Highlight template-yml
-          $('.template-yml .line').removeClass('lit');
-          const nodes = $(`.template-yml .${name}`);
-          nodes.addClass('lit');
-          scrollIntoView(nodes);
-        }
-      });
-    });
-
-    // --------------------------------
-    // When you click in ci-yml commentary
-    // TODO...
+    setupHandler($(".ci-yml .line"));
+    setupHandler($(".ci-yml-commentary .line"));
 
   });
 </script>

@@ -5,12 +5,14 @@ import os
 import sys
 
 if __name__ == "__main__":  # pragma: no cover
-    # if len(sys.argv) < 2:
-    #     print("Usage: generate_new_api_key_for_user <user_name> [confirm]")
-    #     exit(1)
+    if len(sys.argv) < 2:
+        print("Usage: annotate.py <filename>")
+        exit(1)
+    else:
+        params_filename = sys.argv[1]
 
     dir_path = os.path.abspath(os.path.dirname(__file__))
-    spec = importlib.util.spec_from_file_location('data', f"{dir_path}/ci-yml.py")
+    spec = importlib.util.spec_from_file_location('data', f"{dir_path}/{params_filename}")
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
 

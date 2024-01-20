@@ -1,14 +1,4 @@
 
 Maybe highlight line numbers that have special hover behaviour?
 
-# annotate.py
-
-make data come in as a parameter somehow. dynamic import?
-
-make hard-coded HTML in a parameter
-    print("<div class='title'>Github Actions workflow</div>")
-    print("<div class='ci-yml'>")
-
-generate template-yml.html
-
 write some commentary!

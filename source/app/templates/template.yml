@@ -1,0 +1,16 @@
+version: 1
+
+trail:
+  artifacts:
+    - name: dashboard
+      attestations:
+        - name: pull-request
+          type: pull_request
+        - name: lint
+          type: generic
+        - name: unit-test
+          type: junit
+        - name: branch-coverage
+          type: generic
+        - name: snyk-scan
+          type: snyk

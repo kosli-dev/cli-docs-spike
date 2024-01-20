@@ -1,21 +1,19 @@
-<div class="title">.kosli.yml</div>
-
-<div class="template-yml">
-  <span class="line"                          ><span class='number'>  1</span> version: 1</span>
-  <span class="line"                          ><span class='number'>  2</span> </span>
-  <span class="line trail"                    ><span class='number'>  3</span> trail:</span>
-  <span class="line"                          ><span class='number'>  4</span>   artifacts:</span>
-  <span class="line dashboard"                ><span class='number'>  5</span>     --name: dashboard</span>
-  <span class="line"                          ><span class='number'>  6</span>     attestations:</span>
-  <span class="line dashboard_lint"           ><span class='number'>  7</span>       --name: lint</span>
-  <span class="line dashboard_lint"           ><span class='number'>  8</span>         type: generic</span>
-  <span class="line dashboard_pull-request"   ><span class='number'>  9</span>       --name: pull-request</span>
-  <span class="line dashboard_pull-request"   ><span class='number'> 10</span>         type: pull_request</span>
-  <span class="line dashboard_unit-test"      ><span class='number'> 11</span>       --name: unit-test</span>
-  <span class="line dashboard_unit-test"      ><span class='number'> 12</span>         type: junit</span>
-  <span class="line dashboard_branch-coverage"><span class='number'> 13</span>       --name: branch-coverage</span>
-  <span class="line dashboard_branch-coverage"><span class='number'> 14</span>         type: generic</span>
-  <span class="line dashboard_snyk"           ><span class='number'> 15</span>       --name: snyk</span>
-  <span class="line dashboard_snyk"           ><span class='number'> 16</span>         type: snyk</span>
-  <span class="line"                          ><span class='number'> 17</span> </span>
+<div class='title'>.kosli.yml</div>
+<div class='template-yml'>
+  <span class='line n '>{% raw %}<span class='number'>   1</span> version: 1                          {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   2</span>                                     {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>   3</span> trail:                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   4</span>   artifacts:                        {% endraw %}</span>
+  <span class='line s dashboard'>{% raw %}<span class='number'>   5</span>     - name: dashboard               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   6</span>       attestations:                 {% endraw %}</span>
+  <span class='line s dashboard_pull-request'>{% raw %}<span class='number'>   7</span>         - name: pull-request        {% endraw %}</span>
+  <span class='line s dashboard_pull-request'>{% raw %}<span class='number'>   8</span>           type: pull_request        {% endraw %}</span>
+  <span class='line s dashboard_lint'>{% raw %}<span class='number'>   9</span>         - name: lint                {% endraw %}</span>
+  <span class='line s dashboard_lint'>{% raw %}<span class='number'>  10</span>           type: generic             {% endraw %}</span>
+  <span class='line s dashboard_unit-test'>{% raw %}<span class='number'>  11</span>         - name: unit-test           {% endraw %}</span>
+  <span class='line s dashboard_unit-test'>{% raw %}<span class='number'>  12</span>           type: junit               {% endraw %}</span>
+  <span class='line s dashboard_branch-coverage'>{% raw %}<span class='number'>  13</span>         - name: branch-coverage     {% endraw %}</span>
+  <span class='line s dashboard_branch-coverage'>{% raw %}<span class='number'>  14</span>           type: generic             {% endraw %}</span>
+  <span class='line s dashboard_snyk'>{% raw %}<span class='number'>  15</span>         - name: snyk-scan           {% endraw %}</span>
+  <span class='line s dashboard_snyk'>{% raw %}<span class='number'>  16</span>           type: snyk                {% endraw %}</span>
 </div>

@@ -65,7 +65,7 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        if (name != "line" && name != "lit" && name != "n") {
+        if (!["line", "lit", "n"].includes(name)) {
 
           // Highlight attestation
           $('.attest').removeClass('lit');
@@ -97,7 +97,7 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        if (name != "line" && name != "lit" && name != "n") {
+        if (!["line", "lit", "n"].includes(name)) {
           // Highlight attestation
           $('.attest').removeClass('lit');
           $(`.attest[data-name='${name}']`).addClass('lit');

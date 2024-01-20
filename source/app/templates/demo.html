@@ -21,15 +21,22 @@
   $(window).ready(()=> {
 
     const scrollIntoView = (nodes) => {
-      setTimeout(() => {
+      //setTimeout(() => {
         const $first = nodes.first();
         $first.get(0).scrollIntoView({behavior:"smooth", block:"center"});
-        $first.scrollLeft(0); // BUG: Not working
-      }, 100);
+        //$first.scrollLeft(0); // BUG: Not working
+      //}, 100);
     };
 
     // ====================================================
     // When you click on an attestation
+
+    const highlight = (name, kind) => {
+          const nodes = $(`.${kind} .${name}`);
+          $(`.${kind} .line`).removeClass('lit');
+          nodes.each(function() { $(this).addClass('lit'); });
+          scrollIntoView(nodes);
+    };
 
     const $attestations = $(".attest");
 
@@ -37,22 +44,15 @@
       const $attest = $(this);
       $attest.click(function() {
         const name = $attest.data("name");
-        const highlight = (kind) => {
-          const nodes = $(`.${kind} .${name}`);
-          $(`.${kind} .line`).removeClass('lit');
-          nodes.each(function() { $(this).addClass('lit'); });
-          scrollIntoView(nodes);
-        };
 
         // Highlight only that attestation
         $attestations.removeClass('lit');
         $attest.addClass('lit');
 
         // And the lines in the yml files for that attestation
-        // BUG: Adding the 3rd call breaks the second one
-        highlight('template-yml');
-        highlight('ci-yml');
-        //highlight('ci-yml-commentary');
+        highlight(name, 'template-yml');
+        highlight(name, 'ci-yml');
+        //highlight(name, 'ci-yml-commentary'); BUG
       });
     });
 
@@ -65,7 +65,7 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        if (name != "line" && name != "lit") {
+        if (name != "line" && name != "lit" && name != "n") {
 
           // Highlight attestation
           $('.attest').removeClass('lit');
@@ -97,8 +97,7 @@
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(index, name) {
-        if (name != "line" && name != "lit") {
-
+        if (name != "line" && name != "lit" && name != "n") {
           // Highlight attestation
           $('.attest').removeClass('lit');
           $(`.attest[data-name='${name}']`).addClass('lit');

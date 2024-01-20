@@ -1,5 +1,17 @@
 
+BUG: if you all the 3rd  highlight('ci-yml-commentary'); call
+then the 2nd highlight('ci-yml'); seems to break
+
 BUG: if you click on the leftmost attestation and then the
 rightmost attestation, the latter does scroll into view in .kosli.yml
 
 change to scrollover instead of click?
+
+----------------------------------------
+# annotate.py
+
+make data come in as a parameter somehow. dynamic import?
+
+make hard-coded HTML in a parameter
+    print("<div class='title'>Github Actions workflow</div>")
+    print("<div class='ci-yml'>")

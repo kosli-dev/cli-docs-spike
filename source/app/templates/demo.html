@@ -1,32 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div id="dashboard-explain">
-  <table>
-    <tr>
-      <td>{% include 'template-yml.html' %}</td>
-      <td>{% include 'template-yml-commentary.html' %}</td>
-    </tr>
-  </table>
-  {% include 'attestations.html' %}
-  <table>
-    <tr>
-      <td>{% include 'ci-yml.html' %}</td>
-      <td>{% include 'ci-yml-commentary.html' %}</td>
-    </tr>
-  </table>
-</div>
+  {% include 'simple/explain.html' %}
 {% endblock %}
 
-{% block js %}
-<script type="text/javascript">
-  $(window).ready(()=> {
-
-    setupExplainHandlers('#dashboard-explain', [
-      ["template-yml", "template-yml-commentary"],
-      ["ci-yml", "ci-yml-commentary"]
-    ]);
-
-  });
-</script>
-{% endblock %}

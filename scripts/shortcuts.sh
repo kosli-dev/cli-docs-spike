@@ -11,6 +11,6 @@ scripts_dir()
 
 d()
 {
-  ./source/app/templates/build-yml-html.sh
+  ./source/app/templates/build-simple-yml-html.sh
   demo
 }

@@ -6,15 +6,17 @@ import sys
 
 if __name__ == "__main__":  # pragma: no cover
     if len(sys.argv) < 2:
-        print("Usage: annotate.py <filename>")
+        print("Usage: explain.py <filename>")
         exit(1)
     else:
-        params_filename = sys.argv[1]
+        params_path = sys.argv[1]
 
-    dir_path = os.path.abspath(os.path.dirname(__file__))
-    spec = importlib.util.spec_from_file_location('data', f"{dir_path}/{params_filename}")
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    spec = importlib.util.spec_from_file_location('data', f"{my_path}/{params_path}")
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
+
+    dir_path = os.path.abspath(os.path.dirname(f"{my_path}/{params_path}"))
 
     line_kinds = {}
     for (start, count), kind in m.data["lines"].items():

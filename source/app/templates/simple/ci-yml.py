@@ -1,6 +1,6 @@
 
 data = {
-    "src_filename": "main.yml",
+    "src_filename": "github.yml",
     "dst_filename": "ci-yml.html",
     "css_title": "Github Actions workflow",
     "css_class": "ci-yml",

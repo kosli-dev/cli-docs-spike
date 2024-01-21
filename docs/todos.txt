@@ -1,4 +1,7 @@
 
+The pairs argument to setupExplainHandlers() is redundant as the class names
+are hard-wired at lines 47, 79
+
 Maybe just add a "hover-area" next to each commentary paragraph
 which when hovered over auto-scrolls the other dom elements into view.
 

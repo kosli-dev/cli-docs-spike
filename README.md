@@ -11,7 +11,7 @@ Hovering over content auto-scrolls related/explanatory content in other dom elem
 Notes:
 - The lhs yml file views are generated from actual yml files.
 - Has minimal CSS styling.
-- Has no commentary in the rhs panes yet.
+- Has no commentary in the rhs panes yet (only lorem ipsum).
 
 To try it out (requires docker, docker-compose, bash):
 ```shell

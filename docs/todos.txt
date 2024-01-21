@@ -12,3 +12,6 @@ This needs to be more like this:
 
 Might be possible to make line numbers in the commentary act as auto-scrollers
 to their corresponding lines.
+
+Would be good to create a page with 2 sets of dom elements, each with their
+own outer #id. And ensure that the auto-scolling of one does not leak into the other.

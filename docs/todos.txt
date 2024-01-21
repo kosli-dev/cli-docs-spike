@@ -1,4 +1,11 @@
 
+The class names are currently
+    ["template-yml", "template-yml-commentary"],
+    ["ci-yml", "ci-yml-commentary"]
+These are poorly named in that the underlying pattern here is not
+commentary on yml files, but on 'code' files; formal line-based code
+on the left, and informal paragraph based text on the right.
+
 
 Maybe just add a "hover-area" next to each commentary paragraph
 which when hovered over auto-scrolls the other dom elements into view.

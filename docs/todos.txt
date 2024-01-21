@@ -3,6 +3,8 @@ The commentary CSS needs to _not_ have white-space:pre;
 
 Write some commentary.
 
+Extend width of cursorable line in template.yml
+
 CI yml could be tabbed, one tab for each CI system, [Github, Gitlab, CircleCI, etc]
 
 Maybe highlight line numbers that have special hover behaviour?

@@ -7,3 +7,7 @@ CI yml could be tabbed, one tab for each CI system, [Github, Gitlab, CircleCI, e
 
 Maybe highlight line numbers that have special hover behaviour?
 
+.py module has parameters like this:
+        (9, 2): "lint",
+This needs to be more like this:
+       ((5,1),(9,2)): ["artifact", "lint"]

@@ -1,5 +1,5 @@
 
-var setupExplainHandlers = (scope, pairs) => {
+var setupExplainHandlers = (scope) => {
 
   // Helpers
 
@@ -85,6 +85,10 @@ var setupExplainHandlers = (scope, pairs) => {
     });
   };
 
+  const pairs = [
+    ["template-yml", "template-yml-commentary"],
+    ["ci-yml", "ci-yml-commentary"]
+  ]
   for (const [yml, commentary] of pairs) {
     // Auto-scroll from lhs yml content to rhs commentary
     setupHandler(yml, commentary, 'line');

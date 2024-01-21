@@ -3180,7 +3180,7 @@
         return ie.$ === ce && (ie.$ = nn), e && ie.jQuery === ce && (ie.jQuery = tn), ce
     }, "undefined" == typeof e && (ie.jQuery = ie.$ = ce), ce
 });
-var setupExplainHandlers = (scope, pairs) => {
+var setupExplainHandlers = (scope) => {
     // Helpers
     const scrollIntoView = (nodes, behaviour) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
@@ -3252,6 +3252,10 @@ var setupExplainHandlers = (scope, pairs) => {
             });
         });
     };
+    const pairs = [
+        ["template-yml", "template-yml-commentary"],
+        ["ci-yml", "ci-yml-commentary"]
+    ]
     for (const [yml, commentary] of pairs) {
         // Auto-scroll from lhs yml content to rhs commentary
         setupHandler(yml, commentary, 'line');

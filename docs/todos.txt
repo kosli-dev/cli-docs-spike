@@ -18,3 +18,8 @@ to their corresponding lines.
 
 Would be good to create a page with 2 sets of dom elements, each with their
 own outer #id. And ensure that the auto-scolling of one does not leak into the other.
+
+When setupExplainHandlers is declared const (and not var) then
+when the (working) page loads you get an error message in the Javascript console.
+Uncaught SyntaxError: Identifier 'setupExplainHandlers' has already been declared
+How is it being loaded twice?

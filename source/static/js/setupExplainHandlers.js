@@ -1,5 +1,5 @@
 
-const setupExplainHandlers = (scope, pairs) => {
+var setupExplainHandlers = (scope, pairs) => {
 
   // Helpers
 

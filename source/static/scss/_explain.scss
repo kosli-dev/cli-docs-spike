@@ -5,17 +5,6 @@ body {
     font-size: 1em
 }
 
-.template-yml, .template-yml-commentary {
-    font-size: 0.6em;
-    white-space: pre;
-    width: 700px;
-    border: 1px solid LightGray;
-    background-color: White;
-    height: 200px;
-    overflow-y: scroll;
-    overflow: scroll
-}
-
 .attest {
     margin: 10px;
     padding: 10px 10px 10px 20px;
@@ -27,15 +16,21 @@ body {
     }
 }
 
-.ci-yml, .ci-yml-commentary {
-    font-size: 0.6em;
+.template-yml, .template-yml-commentary, .ci-yml, .ci-yml-commentary {
+    font-size: 0.55em;
     white-space: pre;
     width: 700px;
-    border: 1px solid LightGray;
     background-color: White;
-    height: 400px;
     overflow-y: scroll;
     overflow: scroll
+}
+
+.template-yml, .template-yml-commentary {
+    height: 200px;
+}
+
+.ci-yml, .ci-yml-commentary {
+    height: 450px;
 }
 
 .ci-yml, .template-yml {

@@ -9,9 +9,9 @@ Hovering over content auto-scrolls related/explanatory content in other dom elem
 ![Screenshot](https://github.com/kosli-dev/cli-docs-spike/blob/main/docs/ci-workflow.png?raw=true)
 
 Notes:
-- The yml file views are generated from actual yml files.
+- The lhs yml file views are generated from actual yml files.
 - Has minimal CSS styling.
-- Has no actual commentary in the lhs panes.
+- Has no actual commentary in the rhs panes yet.
 - Requires docker, docker-compose, bash.  
 
 To try it out:

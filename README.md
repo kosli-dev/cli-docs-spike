@@ -11,10 +11,9 @@ Hovering over content auto-scrolls related/explanatory content in other dom elem
 Notes:
 - The lhs yml file views are generated from actual yml files.
 - Has minimal CSS styling.
-- Has no actual commentary in the rhs panes yet.
-- Requires docker, docker-compose, bash.  
+- Has no commentary in the rhs panes yet.
 
-To try it out:
+To try it out (requires docker, docker-compose, bash):
 ```shell
 git clone git@github.com:kosli-dev/cli-docs-spike.git
 cd cli-docs-spike

@@ -30,7 +30,7 @@ if __name__ == "__main__":  # pragma: no cover
     with open(src_filename, 'r') as src_file:
         src_lines = [src_line.rstrip() for src_line in src_file.readlines()]
 
-    max_src_line_length = max(len(src_line) for src_line in src_lines)
+    max_src_line_length = max([87] + [len(src_line) for src_line in src_lines])
 
     css_title = m.data['css_title']
     css_class = m.data['css_class']

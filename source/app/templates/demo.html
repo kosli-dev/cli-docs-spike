@@ -42,15 +42,19 @@
 
     const scope = '#dashboard-explain';
 
-    const $attestations = $(".attest", scope);
+    const $$ = (selector) => {
+      return $(selector, scope);
+    };
+
+    const $attestations = $$(".attest");
 
     $attestations.each(function() {
       const $attest = $(this);
       $attest.hover(function() {
 
         const highlight = (name, kind) => {
-              $(`.${kind} .line`, scope).removeClass('lit');
-              const nodes = $(`.${kind} .${name}`, scope);
+              $$(`.${kind} .line`).removeClass('lit');
+              const nodes = $$(`.${kind} .${name}`);
               nodes.each(function() { $(this).addClass('lit'); });
               scrollIntoView(nodes, "instant");
         };
@@ -74,7 +78,7 @@
 
     const setupHandler = (dee, dum) => {
       const kind = dee;
-      $(`.${kind} .line`, scope).hover(function() {
+      $$(`.${kind} .line`).hover(function() {
         const $line = $(this);
         const classes = $line.attr('class').split(/\s+/);
         $.each(classes, function(_index, name) {
@@ -83,16 +87,17 @@
             //console.log(`name=${name} inside the if`);
 
             // Highlight attestation
-            $('.attest', scope).removeClass('lit');
-            $(`.attest[data-name='${name}']`, scope).addClass('lit');
+            $attestations.removeClass('lit');
+            $$(`.attest[data-name='${name}']`).addClass('lit');
 
             const highlight = (name, inner_kind) => {
               //console.log(`highlight(${name}, ${inner_kind})`);
-              $(`.${inner_kind} .line`, scope).removeClass('lit');
-              const nodes = $(`.${inner_kind} .${name}`, scope);
+              $$(`.${inner_kind} .line`).removeClass('lit');
+              const nodes = $$(`.${inner_kind} .${name}`);
               //console.log(`count=${nodes.length}`);
               nodes.addClass('lit');
               if (inner_kind != kind) {
+                // See NOTE: in scrollIntoView()
                 const behaviour = (inner_kind == dum) ? "smooth" : "instant";
                 scrollIntoView(nodes, behaviour);
               }

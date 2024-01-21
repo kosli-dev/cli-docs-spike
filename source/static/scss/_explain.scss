@@ -17,12 +17,14 @@ body {
 }
 
 .template-yml, .template-yml-commentary, .ci-yml, .ci-yml-commentary {
-    font-size: 0.55em;
-    white-space: pre;
     width: 700px;
     background-color: White;
     overflow-y: scroll;
     overflow: scroll
+}
+
+.template-yml, .ci-yml {
+    white-space: pre;
 }
 
 .template-yml, .template-yml-commentary {
@@ -34,11 +36,16 @@ body {
 }
 
 .ci-yml, .template-yml {
+    font-size: 0.55em;
     background-color: Black;
     color: White;
     .lit, .s.lit:hover {
         background-color: lighten(Black, 50%);
     }
+}
+
+.ci-yml-commentary, .template-commentary {
+    font-size: 1em;
 }
 
 .line {

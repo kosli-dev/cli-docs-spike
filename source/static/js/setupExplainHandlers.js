@@ -29,8 +29,8 @@ const setupExplainHandlers = (scope, pairs) => {
     const $attest = $(this);
     $attest.hover(function() {
 
-      const highlight = (name, kind) => {
-            $$(`.${kind} .line`).removeClass('lit');
+      const highlight = (name, kind, lp) => {
+            $$(`.${kind} .${lp}`).removeClass('lit');
             const nodes = $$(`.${kind} .${name}`);
             nodes.each(function() { $(this).addClass('lit'); });
             scrollIntoView(nodes, "instant");
@@ -43,56 +43,56 @@ const setupExplainHandlers = (scope, pairs) => {
       // And the lines in the yml/commentary for that attestation
       const name = $attest.data("name");
 
-      highlight(name, 'template-yml');
-      highlight(name, 'template-yml-commentary');
-      highlight(name, 'ci-yml');
-      highlight(name, 'ci-yml-commentary');
+      highlight(name, 'template-yml', 'line');
+      highlight(name, 'template-yml-commentary', 'para');
+      highlight(name, 'ci-yml', 'line');
+      highlight(name, 'ci-yml-commentary', 'para');
     });
   });
 
   // ====================================================
   // When you click yml/commentary
 
-  const setupHandler = (dee, dum) => {
-    const kind = dee;
-    $$(`.${kind} .line`).hover(function() {
+  const setupHandler = (dee, dum, lp) => {
+    //const kind = dee;
+    $$(`.${dee} .${lp}`).hover(function() {
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
       $.each(classes, function(_index, name) {
         //console.log(`name=${name}`);
-        if (!["line", "lit", "n"].includes(name)) {
+        if (!["line", "para", "lit", "n"].includes(name)) {
           //console.log(`name=${name} inside the if`);
 
           // Highlight attestation
           $attestations.removeClass('lit');
           $$(`.attest[data-name='${name}']`).addClass('lit');
 
-          const highlight = (name, inner_kind) => {
+          const highlight = (name, inner_kind, inner_lp) => {
             //console.log(`highlight(${name}, ${inner_kind})`);
-            $$(`.${inner_kind} .line`).removeClass('lit');
+            $$(`.${inner_kind} .${inner_lp}`).removeClass('lit');
             const nodes = $$(`.${inner_kind} .${name}`);
             //console.log(`count=${nodes.length}`);
             nodes.addClass('lit');
-            if (inner_kind != kind) {
+            if (inner_kind != dee) {
               // See NOTE: in scrollIntoView()
               const behaviour = (inner_kind == dum) ? "smooth" : "instant";
               scrollIntoView(nodes, behaviour);
             }
           };
 
-          highlight(name, 'template-yml');
-          highlight(name, 'template-yml-commentary');
-          highlight(name, 'ci-yml');
-          highlight(name, 'ci-yml-commentary');
+          highlight(name, 'template-yml', 'line');
+          highlight(name, 'template-yml-commentary', 'para');
+          highlight(name, 'ci-yml', 'line');
+          highlight(name, 'ci-yml-commentary', 'para');
         }
       });
     });
   };
 
-  for (const [dee, dum] of pairs) {
-    console.log(`dee=${dee}`);
-    console.log(`dum=${dum}`);
-    setupHandler(dee, dum);
-    setupHandler(dum, dee);
+  for (const [yml, commentary] of pairs) {
+    //console.log(`yml=${yml}`);
+    //console.log(`commentary=${commentary}`);
+    setupHandler(yml, commentary, 'line');
+    setupHandler(commentary, yml, 'para');
   }
 };

@@ -6,11 +6,11 @@ data = {
     "css_class": "ci-yml",
     "lines": {
         (39, 1): "trail",
-        (70, 3): "dashboard_pull-request",
-        (105, 4): "dashboard_lint",
-        (134, 3): "dashboard",
-        (171, 3): "dashboard_unit-test",
-        (179, 4): "dashboard_branch-coverage",
-        (214, 3): "dashboard_snyk",
+        (70, 3): "pull-request",
+        (105, 4): "lint",
+        (134, 3): "artifact",
+        (171, 3): "unit-test",
+        (179, 4): "branch-coverage",
+        (214, 3): "snyk",
     },
 }

@@ -6,11 +6,11 @@ data = {
     "css_class": "template-yml",
     "lines": {
         (3, 1): "trail",
-        (7, 2): "dashboard_pull-request",
-        (9, 2): "dashboard_lint",
-        (5, 1): "dashboard",
-        (11, 2): "dashboard_unit-test",
-        (13, 2): "dashboard_branch-coverage",
-        (15, 2): "dashboard_snyk",
+        (7, 2): "pull-request",
+        (9, 2): "lint",
+        (5, 1): "artifact",
+        (11, 2): "unit-test",
+        (13, 2): "branch-coverage",
+        (15, 2): "snyk",
     },
 }

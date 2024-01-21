@@ -1,4 +1,7 @@
 
+Maybe just add a "hover-area" next to each commentary paragraph
+which when hovered over auto-scrolls the other dom elements into view.
+
 Write some commentary.
 
 CI yml could be tabbed, one tab for each CI system, [Github, Gitlab, CircleCI, etc]

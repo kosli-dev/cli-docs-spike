@@ -112,11 +112,13 @@
       });
     };
 
-    setupHandler("template-yml", "template-yml-commentary");
-    setupHandler("template-yml-commentary", "template-yml");
+    const setupPairedHandlers = (dee, dum) => {
+      setupHandler(dee, dum);
+      setupHandler(dum, dee);
+    };
 
-    setupHandler("ci-yml", "ci-yml-commentary");
-    setupHandler("ci-yml-commentary", "ci-yml");
+    setupPairedHandlers("template-yml", "template-yml-commentary");
+    setupPairedHandlers("ci-yml", "ci-yml-commentary");
 
   });
 </script>

@@ -26,11 +26,14 @@
       // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
       if (nodes.length > 0) {
         const $first = nodes.first();
-        // NOTE: Multiple scrollIntoView(..., behaviour=="smooth") calls cause problems.
+        // NOTE: Multiple behaviour:"smooth") calls cause problems.
         // Eg see https://bugs.chromium.org/p/chromium/issues/detail?id=1142270
-        // The calling code must pass only one behaviour="smooth"
-        $first.get(0).scrollIntoView({behavior:behaviour, block:"center"});
-        $first.scrollLeft(0); // BUG: Not working
+        // The calling code must pass only _one_ behaviour="smooth"
+        $first.get(0).scrollIntoView({
+          behavior: behaviour, // See NOTE
+          block: "center",     // Vertical
+          inline: "start"      // Horizontal
+        });
       }
     };
 

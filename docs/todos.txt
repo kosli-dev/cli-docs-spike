@@ -13,3 +13,6 @@ Maybe highlight line numbers that have special hover behaviour?
         (9, 2): "lint",
 This needs to be more like this:
        ((5,1),(9,2)): ["artifact", "lint"]
+
+Might be possible to make line numbers in the commentary act as auto-scrollers
+to their corresponding lines.

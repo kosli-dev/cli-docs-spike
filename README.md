@@ -12,6 +12,7 @@ Notes:
 - The lhs yml file views are generated from actual yml files.
 - Has minimal CSS styling.
 - Has no commentary in the rhs panes yet (only lorem ipsum).
+- Have left->right and right->left auto-scrolling, maybe just right->left?
 
 To try it out (requires docker, docker-compose, bash):
 ```shell

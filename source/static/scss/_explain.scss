@@ -44,7 +44,9 @@ body {
     }
 }
 
-.ci-yml-commentary, .template-commentary {
+.ci-yml-commentary, .template-yml-commentary {
+    margin-left: 5px;
+    padding-left: 10px;
     font-size: 1em;
 }
 

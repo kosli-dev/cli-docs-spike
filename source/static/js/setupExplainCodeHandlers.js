@@ -1,5 +1,5 @@
 
-var setupExplainHandlers = (scope) => {
+var setupExplainCodeHandlers = (scope) => {
 
   // Helpers
 

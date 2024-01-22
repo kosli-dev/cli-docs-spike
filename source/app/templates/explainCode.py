@@ -7,7 +7,7 @@ from collections import defaultdict
 
 if __name__ == "__main__":  # pragma: no cover
     if len(sys.argv) < 2:
-        print("Usage: explain.py <filename>")
+        print("Usage: explainCode.py <filename>")
         exit(1)
     else:
         params_path = sys.argv[1]

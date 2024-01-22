@@ -3180,7 +3180,7 @@
         return ie.$ === ce && (ie.$ = nn), e && ie.jQuery === ce && (ie.jQuery = tn), ce
     }, "undefined" == typeof e && (ie.jQuery = ie.$ = ce), ce
 });
-var setupExplainHandlers = (scope) => {
+var setupExplainCodeHandlers = (scope) => {
     // Helpers
     const scrollIntoView = (nodes, behaviour) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView

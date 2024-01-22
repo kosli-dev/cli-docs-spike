@@ -1,2 +1,2 @@
 // require ./jquery.min.js
-// require ./setupExplainHandlers.js
+// require ./setupExplainCodeHandlers.js

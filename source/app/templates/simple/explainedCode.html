@@ -22,7 +22,10 @@
 <script type="text/javascript">
   $(window).ready(()=> {
 
-    setupExplainCodeHandlers('#dashboard-explain');
+    setupExplainCodeHandlers('#dashboard-explain', [
+      ["template-yml", "template-yml-commentary"],
+      ["ci-yml", "ci-yml-commentary"]
+    ]);
 
   });
 </script>

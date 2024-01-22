@@ -1,5 +1,5 @@
 
-var setupExplainCodeHandlers = (scope) => {
+var setupExplainCodeHandlers = (scope, codePairs) => {
 
   // Helpers
 
@@ -22,6 +22,7 @@ var setupExplainCodeHandlers = (scope) => {
     return $(selector, scope);
   };
 
+  // -----------------------------------------------
   // When you click on an attestation
 
   const $attestations = $$(".attest");
@@ -41,17 +42,18 @@ var setupExplainCodeHandlers = (scope) => {
       $attestations.removeClass('lit');
       $attest.addClass('lit');
 
-      // And the lines in the yml/commentary for that attestation
+      // And the lines in the code/commentary for that attestation
       const name = $attest.data("name");
 
-      highlight(name, 'template-yml', 'line');
-      highlight(name, 'template-yml-commentary', 'para');
-      highlight(name, 'ci-yml', 'line');
-      highlight(name, 'ci-yml-commentary', 'para');
+      for (const [code, commentary] of codePairs) {
+        highlight(name, code, 'line');
+        highlight(name, commentary, 'para');
+      }
     });
   });
 
-  // When you click yml/commentary
+  // -----------------------------------------------
+  // When you click code/commentary
 
   const setupHandler = (dee, dum, lp) => {
     $$(`.${dee} .${lp}`).hover(function() {
@@ -75,24 +77,20 @@ var setupExplainCodeHandlers = (scope) => {
             }
           };
 
-          // Highlight all yml/commentary
-          highlight(name, 'template-yml', 'line');
-          highlight(name, 'template-yml-commentary', 'para');
-          highlight(name, 'ci-yml', 'line');
-          highlight(name, 'ci-yml-commentary', 'para');
+          // Highlight all code/commentary
+          for (const [code, commentary] of codePairs) {
+            highlight(name, code, 'line');
+            highlight(name, commentary, 'para');
+          }
         }
       });
     });
   };
 
-  const pairs = [
-    ["template-yml", "template-yml-commentary"],
-    ["ci-yml", "ci-yml-commentary"]
-  ]
-  for (const [yml, commentary] of pairs) {
-    // Auto-scroll from lhs yml content to rhs commentary
-    setupHandler(yml, commentary, 'line');
-    // Auto-scroll from rhs commentary to lhs yml
-    setupHandler(commentary, yml, 'para');
+  for (const [code, commentary] of codePairs) {
+    // Auto-scroll code commentary from code
+    setupHandler(code, commentary, 'line');
+    // Auto-scroll code from code commentary
+    setupHandler(commentary, code, 'para');
   }
 };

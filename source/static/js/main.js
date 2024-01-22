@@ -3180,7 +3180,7 @@
         return ie.$ === ce && (ie.$ = nn), e && ie.jQuery === ce && (ie.jQuery = tn), ce
     }, "undefined" == typeof e && (ie.jQuery = ie.$ = ce), ce
 });
-var setupExplainCodeHandlers = (scope) => {
+var setupExplainCodeHandlers = (scope, codePairs) => {
     // Helpers
     const scrollIntoView = (nodes, behaviour) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
@@ -3199,6 +3199,7 @@ var setupExplainCodeHandlers = (scope) => {
     const $$ = (selector) => {
         return $(selector, scope);
     };
+    // -----------------------------------------------
     // When you click on an attestation
     const $attestations = $$(".attest");
     $attestations.each(function() {
@@ -3215,15 +3216,16 @@ var setupExplainCodeHandlers = (scope) => {
             // Highlight only that attestation
             $attestations.removeClass('lit');
             $attest.addClass('lit');
-            // And the lines in the yml/commentary for that attestation
+            // And the lines in the code/commentary for that attestation
             const name = $attest.data("name");
-            highlight(name, 'template-yml', 'line');
-            highlight(name, 'template-yml-commentary', 'para');
-            highlight(name, 'ci-yml', 'line');
-            highlight(name, 'ci-yml-commentary', 'para');
+            for (const [code, commentary] of codePairs) {
+                highlight(name, code, 'line');
+                highlight(name, commentary, 'para');
+            }
         });
     });
-    // When you click yml/commentary
+    // -----------------------------------------------
+    // When you click code/commentary
     const setupHandler = (dee, dum, lp) => {
         $$(`.${dee} .${lp}`).hover(function() {
             const $line = $(this);
@@ -3243,23 +3245,19 @@ var setupExplainCodeHandlers = (scope) => {
                             scrollIntoView(nodes, behaviour);
                         }
                     };
-                    // Highlight all yml/commentary
-                    highlight(name, 'template-yml', 'line');
-                    highlight(name, 'template-yml-commentary', 'para');
-                    highlight(name, 'ci-yml', 'line');
-                    highlight(name, 'ci-yml-commentary', 'para');
+                    // Highlight all code/commentary
+                    for (const [code, commentary] of codePairs) {
+                        highlight(name, code, 'line');
+                        highlight(name, commentary, 'para');
+                    }
                 }
             });
         });
     };
-    const pairs = [
-        ["template-yml", "template-yml-commentary"],
-        ["ci-yml", "ci-yml-commentary"]
-    ]
-    for (const [yml, commentary] of pairs) {
-        // Auto-scroll from lhs yml content to rhs commentary
-        setupHandler(yml, commentary, 'line');
-        // Auto-scroll from rhs commentary to lhs yml
-        setupHandler(commentary, yml, 'para');
+    for (const [code, commentary] of codePairs) {
+        // Auto-scroll code commentary from code
+        setupHandler(code, commentary, 'line');
+        // Auto-scroll code from code commentary
+        setupHandler(commentary, code, 'para');
     }
 };

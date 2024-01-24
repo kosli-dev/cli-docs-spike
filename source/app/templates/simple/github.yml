@@ -95,18 +95,11 @@ jobs:
           LINT_EVIDENCE_DIR=/tmp/evidence/lint
           mkdir -p "${LINT_EVIDENCE_DIR}"
           gem install rubocop
-          set +e
           rubocop --raise-cop-error . > "${LINT_EVIDENCE_DIR}"/rubocop.log
-          STATUS=$?
-          set -e
-          
-          KOSLI_LINT_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)
           cp .rubocop.yml "${LINT_EVIDENCE_DIR}"
           kosli attest generic \
-            --compliant="${KOSLI_LINT_COMPLIANT}" \
             --evidence-paths="${LINT_EVIDENCE_DIR}" \
             --name=dashboard.lint
-          exit $STATUS
                   
 
   build-image:

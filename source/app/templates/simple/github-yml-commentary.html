@@ -2,66 +2,89 @@
 
 <div class="code-explanation ci-yml-commentary">
 
-  <p class="para dry-run">dry run ...
+  <div class="para dry-run">dry run ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  </p>
+  </div>
 
-  <p class="para host"> host ...
+  <div class="para host"> host ...
     Companies with a custom auth+SSO+domain will set this to their domain, eg https://acme.app.kosli.com
-  </p>
+  </div>
 
-  <p class="para common">
+  <div class="para common">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
     occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  </div>
 
-  <p class="para trail">trail ...
+  <div class="para trail">trail ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </p>
+  </div>
 
-  <p class="para pull-request">pull-request ...
+  <div class="para pull-request">pull-request ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
     occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  </div>
 
-  <p class="para lint">lint ...
+  <div class="para lint">
+    The <code>--raise-cop-error</code> flag on line 98 means the rubocop call will return a non-zero exit code if
+    any lint violations are found. This means:
+    <ul>
+      <li>when there are no rubocop lint violations, the <code>kosli attest</code> command on line 100 will run, with
+    the default <code>--compliant=true</code></li>
+      <li>when there are rubocop lint violations, the <code>kosli attest</code> command will <em>not</em> run.
+        The <code>dashboard.lint</code> evidence will be <em>missing</em>, causing the overall compliance of the
+        <code>dashboard</code> artifact to be incompliant</li>
+    </ul>
+    To explicitly attest incompliant evidence, you can run <code>rubocop</code> like this:
+    <div class="explained-code">
+      <span class="line">      set +e</span>
+      <span class="line">      rubocop --raise-cop-error . &gt; "${LINT_EVIDENCE_DIR}"/rubocop.log</span>
+      <span class="line">      STATUS=$?</span>
+      <span class="line">      set -e</span>
+    </div>
+    set the <code>KOSLI_LINT_COMPLIANT</code> flag based on $STATUS:
+    <div class="explained-code">
+      <span class="line">      KOSLI_LINT_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)</span>
+    </div>
+    and run <code>kosli attest</code> with the <code>--assert</code> flag:
+    <div class="explained-code">
+      <span class="line"></span>
+      <span class="line">      kosli attest generic \</span>
+      <span class="line">        --assert \</span>
+      <span class="line">        --compliant="${KOSLI_LINT_COMPLIANT}" \</span>
+      <span class="line">        --evidence-paths="${LINT_EVIDENCE_DIR}" \</span>
+      <span class="line">        --name=dashboard.lint</span>
+    </div>
+  </div>
+
+  <div class="para artifact">artifact ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+  <div class="para unit-test">unit-test ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-  </p>
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
 
-  <p class="para artifact">artifact ...
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </p>
-
-  <p class="para unit-test">unit-test ...
+  <div class="para branch-coverage">branch-coverage ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
     occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  </div>
 
-  <p class="para branch-coverage">branch-coverage ...
+  <div class="para snyk">snyk ...
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
     magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
     occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
-
-  <p class="para snyk">snyk ...
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  </div>
 
 </div>

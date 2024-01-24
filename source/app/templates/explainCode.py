@@ -37,7 +37,7 @@ if __name__ == "__main__":  # pragma: no cover
 
     dst_lines = [
         f"<div class='title'>{css_title}</div>",
-        f"<div class='{css_class}'>"
+        f"<div class='explained-code {css_class}'>"
     ]
     for n, src_line in enumerate(src_lines, 1):
         dst_line = src_line.ljust(max_src_line_length+5)

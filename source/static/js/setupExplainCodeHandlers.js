@@ -31,7 +31,7 @@ var setupExplainCodeHandlers = (scope, codePairs) => {
     const $attest = $(this);
     $attest.hover(function() {
 
-      const highlight = (name, kind, lp) => {
+      const highlight = (kind, lp, name) => {
         $$(`.${kind} .${lp}`).removeClass('lit');
         const nodes = $$(`.${kind} .${name}`);
         nodes.each(function() { $(this).addClass('lit'); });
@@ -46,8 +46,8 @@ var setupExplainCodeHandlers = (scope, codePairs) => {
       const name = $attest.data("name");
 
       for (const [code, commentary] of codePairs) {
-        highlight(name, code, 'line');
-        highlight(name, commentary, 'para');
+        highlight(code, 'line', name);
+        highlight(commentary, 'para', name);
       }
     });
   });
@@ -59,16 +59,16 @@ var setupExplainCodeHandlers = (scope, codePairs) => {
     $$(`.${dee} .${lp}`).hover(function() {
       const $line = $(this);
       const classes = $line.attr('class').split(/\s+/);
-      $.each(classes, function(_index, name) {
-        if (!["line", "para", "lit", "n"].includes(name)) {
+      $.each(classes, function(_index, cssName) {
+        if (!["line", "para", "lit", "n"].includes(cssName)) {
 
           // Highlight the attestation
           $attestations.removeClass('lit');
-          $$(`.attest[data-name='${name}']`).addClass('lit');
+          $$(`.attest[data-name='${cssName}']`).addClass('lit');
 
-          const highlight = (name, inner_kind, inner_lp) => {
+          const highlight = (inner_kind, inner_lp) => {
             $$(`.${inner_kind} .${inner_lp}`).removeClass('lit');
-            const nodes = $$(`.${inner_kind} .${name}`);
+            const nodes = $$(`.${inner_kind} .${cssName}`);
             nodes.addClass('lit');
             if (inner_kind != dee) {
               // See NOTE: in scrollIntoView()
@@ -79,8 +79,8 @@ var setupExplainCodeHandlers = (scope, codePairs) => {
 
           // Highlight all code/commentary
           for (const [code, commentary] of codePairs) {
-            highlight(name, code, 'line');
-            highlight(name, commentary, 'para');
+            highlight(code, 'line');
+            highlight(commentary, 'para');
           }
         }
       });

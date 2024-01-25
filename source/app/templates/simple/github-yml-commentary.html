@@ -30,10 +30,11 @@
   </div>
 
   <div class="para lint">
+    <h3>kosli attest generic</h3>
     Line 100 is an example of a call to <code>kosli attest generic</code>.
     It attests the outcome of the <a href="https://rubocop.org/">Rubocop</a> Ruby style linter.
     The <code><a href="https://docs.rubocop.org/rubocop/usage/basic_usage.html#command-line-flags">--raise-cop-error</a></code>
-    flag on line 98 means:
+    flag on line 98 is important:
     <ul>
       <li>when there are <em>no</em> rubocop lint violations:
         <ul>
@@ -51,7 +52,7 @@
     </ul>
     Since only compliant artifacts get deployed (thanks to the Kosli sdlc-control-gate on line 217),
     and your auditors will only need proof for deployed artifacts, this is perfectly acceptable.
-    However, if you wish to explicitly attest incompliant evidence, you can run <code>rubocop</code> like this:
+    However, if you wish to explicitly attest <em>incompliant</em> evidence, you can run <code>rubocop</code> like this:
     <div class="explained-code">
       <span class="line">      set +e</span>
       <span class="line">      rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log</span>
@@ -62,7 +63,7 @@
     <div class="explained-code">
       <span class="line">      KOSLI_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)</span>
     </div>
-    and then run <code>kosli attest generic</code> as before:
+    and run <code>kosli attest generic</code> as before:
     <div class="explained-code">
       <span class="line">      kosli attest generic \</span>
       <span class="line">        --evidence-paths=${KOSLI_EVIDENCE_PATHS} \</span>

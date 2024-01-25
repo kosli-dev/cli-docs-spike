@@ -44,7 +44,7 @@
     If you wish to also attest incompliant evidence, you could run <code>rubocop</code> like this:
     <div class="explained-code">
       <span class="line">      set +e</span>
-      <span class="line">      rubocop --raise-cop-error . | tee "${LINT_EVIDENCE_DIR}"/rubocop.log</span>
+      <span class="line">      rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log</span>
       <span class="line">      STATUS=${PIPESTATUS[0]}</span>
       <span class="line">      set -e</span>
     </div>
@@ -55,7 +55,7 @@
     and then run <code>kosli attest generic</code>:
     <div class="explained-code">
       <span class="line">      kosli attest generic \</span>
-      <span class="line">        --evidence-paths="${LINT_EVIDENCE_DIR}" \</span>
+      <span class="line">        --evidence-paths=${KOSLI_EVIDENCE_PATHS} \</span>
       <span class="line">        --name=dashboard.lint</span>
     </div>
     If you wish the <code>kosli attest generic</code> call to return a non-zero exit code when

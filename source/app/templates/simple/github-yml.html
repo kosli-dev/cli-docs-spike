@@ -94,13 +94,13 @@
   <span class='line n '>{% raw %}<span class='number'>  92</span>                                                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  93</span>       - name: Run Rubocop linter on source, attest evidence to Kosli Trail                  {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  94</span>         run: |                                                                              {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  95</span>           LINT_EVIDENCE_DIR=/tmp/evidence/lint                                              {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  96</span>           mkdir -p "${LINT_EVIDENCE_DIR}"                                                   {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  95</span>           KOSLI_EVIDENCE_PATHS=/tmp/evidence/lint                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  96</span>           mkdir -p "${KOSLI_EVIDENCE_PATHS}"                                                {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  97</span>           gem install rubocop                                                               {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  98</span>           rubocop --raise-cop-error . > "${LINT_EVIDENCE_DIR}"/rubocop.log                  {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  99</span>           cp .rubocop.yml "${LINT_EVIDENCE_DIR}"                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  98</span>           rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log             {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  99</span>           cp .rubocop.yml ${KOSLI_EVIDENCE_PATHS}                                           {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'> 100</span>           kosli attest generic \                                                            {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'> 101</span>             --evidence-paths="${LINT_EVIDENCE_DIR}" \                                       {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'> 101</span>             --evidence-paths=${KOSLI_EVIDENCE_PATHS} \                                      {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'> 102</span>             --name=dashboard.lint                                                           {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 103</span>                                                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 104</span>                                                                                             {% endraw %}</span>

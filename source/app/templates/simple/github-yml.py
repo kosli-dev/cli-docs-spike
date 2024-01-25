@@ -13,9 +13,9 @@ data = {
         (48, 1): "trail",
         (70, 3): "pull-request",
         (100, 3): "lint",
-        (127, 3): "artifact",
-        (164, 3): "unit-test",
-        (172, 4): "branch-coverage",
-        (207, 3): "snyk",
+        (132, 3): "artifact",
+        (169, 3): "unit-test",
+        (177, 4): "branch-coverage",
+        (212, 3): "snyk",
     },
 }

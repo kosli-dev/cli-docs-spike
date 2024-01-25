@@ -6,7 +6,7 @@
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
   </div>
 
-  <div class="para host"> host ...
+  <div class="para host">
     Companies with a custom auth+SSO+domain will set this to their domain, eg https://acme.app.kosli.com
   </div>
 
@@ -37,8 +37,9 @@
     the default <code>--compliant=true</code></li>
       <li>when there are rubocop lint violations, the <code>kosli attest generic</code> command will <em>not</em> run.
         The <code>dashboard.lint</code> evidence will be <em>missing</em>, causing the overall compliance of the
-        <code>dashboard</code> artifact to be incompliant</li>. On the assumption that only compliant artifacts
-        get deployed, this is perfectly acceptable, since your auditors will only want proof for deployed artifacts.
+        <code>dashboard</code> artifact to be incompliant.</li>
+      On the assumption that only compliant artifacts get deployed, this is perfectly acceptable,
+      since your auditors will only need proof for deployed artifacts.
     </ul>
     If you wish to also attest incompliant evidence, you could run <code>rubocop</code> like this:
     <div class="explained-code">
@@ -53,7 +54,6 @@
     </div>
     and then run <code>kosli attest generic</code>:
     <div class="explained-code">
-      <span class="line"></span>
       <span class="line">      kosli attest generic \</span>
       <span class="line">        --evidence-paths="${LINT_EVIDENCE_DIR}" \</span>
       <span class="line">        --name=dashboard.lint</span>

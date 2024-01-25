@@ -33,32 +33,33 @@
     The <code>--raise-cop-error</code> flag on line 98 means the rubocop call will return a non-zero exit code if
     any lint violations are found. This means:
     <ul>
-      <li>when there are no rubocop lint violations, the <code>kosli attest</code> command on line 100 will run, with
+      <li>when there are no rubocop lint violations, the <code>kosli attest generic</code> command on line 100 will run, with
     the default <code>--compliant=true</code></li>
-      <li>when there are rubocop lint violations, the <code>kosli attest</code> command will <em>not</em> run.
+      <li>when there are rubocop lint violations, the <code>kosli attest generic</code> command will <em>not</em> run.
         The <code>dashboard.lint</code> evidence will be <em>missing</em>, causing the overall compliance of the
-        <code>dashboard</code> artifact to be incompliant</li>
+        <code>dashboard</code> artifact to be incompliant</li>. On the assumption that only compliant artifacts
+        get deployed, this is perfectly acceptable, since your auditors will only want proof for deployed artifacts.
     </ul>
-    To explicitly attest incompliant evidence, you can run <code>rubocop</code> like this:
+    If you wish to also attest incompliant evidence, you could run <code>rubocop</code> like this:
     <div class="explained-code">
       <span class="line">      set +e</span>
-      <span class="line">      rubocop --raise-cop-error . &gt; "${LINT_EVIDENCE_DIR}"/rubocop.log</span>
-      <span class="line">      STATUS=$?</span>
+      <span class="line">      rubocop --raise-cop-error . | tee "${LINT_EVIDENCE_DIR}"/rubocop.log</span>
+      <span class="line">      STATUS=${PIPESTATUS[0]}</span>
       <span class="line">      set -e</span>
     </div>
-    set the <code>KOSLI_LINT_COMPLIANT</code> flag based on $STATUS:
+    set the <code>KOSLI_COMPLIANT</code> flag based on $STATUS:
     <div class="explained-code">
-      <span class="line">      KOSLI_LINT_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)</span>
+      <span class="line">      KOSLI_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)</span>
     </div>
-    and run <code>kosli attest</code> with the <code>--assert</code> flag:
+    and then run <code>kosli attest generic</code>:
     <div class="explained-code">
       <span class="line"></span>
       <span class="line">      kosli attest generic \</span>
-      <span class="line">        --assert \</span>
-      <span class="line">        --compliant="${KOSLI_LINT_COMPLIANT}" \</span>
       <span class="line">        --evidence-paths="${LINT_EVIDENCE_DIR}" \</span>
       <span class="line">        --name=dashboard.lint</span>
     </div>
+    If you wish the <code>kosli attest generic</code> call to return a non-zero exit code when
+    <code>KOSLI_COMPLIANT</code> is false, add the <code>--assert</code> flag to the call.
   </div>
 
   <div class="para artifact">artifact ...

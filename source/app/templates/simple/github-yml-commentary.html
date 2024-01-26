@@ -31,10 +31,10 @@
 
   <div class="para lint">
     <h3>kosli attest generic</h3>
-    Line 100 is an example of a call to <code>kosli attest generic</code>.
+    Line 101 is an example of a call to <code>kosli attest generic</code>.
     It attests the outcome of the <a href="https://rubocop.org/">Rubocop</a> Ruby style linter.
     The Rubocop <code><a href="https://docs.rubocop.org/rubocop/usage/basic_usage.html#command-line-flags">--raise-cop-error</a></code>
-    flag on line 98 is important:
+    flag on line 99 is important:
     <ul>
       <li>when there are <em>no</em> Rubocop lint violations:
         <ul>
@@ -50,7 +50,7 @@
           <li>the <code>dashboard.lint</code> evidence will be <em>missing</em>.</li>
         </ul>
     </ul>
-    Since only a compliant <code>dashboard</code> artifact will get deployed (thanks to the Kosli sdlc-control-gate on line 217),
+    Since only a compliant <code>dashboard</code> artifact will get deployed (thanks to the Kosli sdlc-control-gate on line 223),
     and your auditors will only need proof for deployed artifacts, this is perfectly acceptable.
     However, if you wish to explicitly attest <em>incompliant</em> evidence, you can run Rubocop like this:
     <div class="explained-code">

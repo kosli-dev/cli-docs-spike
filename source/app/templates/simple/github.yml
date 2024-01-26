@@ -95,6 +95,7 @@ jobs:
         run: |
           gem install rubocop
           mkdir -p "${KOSLI_EVIDENCE_PATHS}"
+          set -o pipefail
           rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log
           cp .rubocop.yml ${KOSLI_EVIDENCE_PATHS}
           kosli attest generic \

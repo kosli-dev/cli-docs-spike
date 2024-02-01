@@ -46,7 +46,7 @@
   <span class='line s trail'>{% raw %}<span class='number'>  44</span>           IMAGE_TAG=${GITHUB_SHA:0:7}                                                       {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  45</span>           echo "image_tag=${IMAGE_TAG}" >> ${GITHUB_OUTPUT}                                 {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  46</span>           IMAGE_NAME="cyberdojo/${{ env.KOSLI_FLOW }}:${IMAGE_TAG}"                         {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  47</span>           echo "image_name=${IMAGE_NAME}" >> ${GITHUB_OUTPUT}                               {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  47</span>           echo "image_name=${IMAGE_NAME}" >> ${GITHUB_OUTPUT}                               {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  48</span>                                                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  49</span>                                                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  50</span>   pull-request:                                                                             {% endraw %}</span>

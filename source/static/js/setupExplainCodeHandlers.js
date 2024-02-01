@@ -89,7 +89,7 @@ var setupExplainCodeHandlers = (scope, codePairs) => {
 
   for (const [code, commentary] of codePairs) {
     // Auto-scroll commentary from code
-    // setupHandler(code, commentary, 'line');
+    setupHandler(code, commentary, 'line');
     // Auto-scroll commentary to code
     setupHandler(commentary, code, 'para');
   }

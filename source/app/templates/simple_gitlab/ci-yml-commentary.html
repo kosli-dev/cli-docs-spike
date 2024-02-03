@@ -1,0 +1,101 @@
+<div class="title">&nbsp;</div>
+
+<div class="code-explanation ci-yml-commentary">
+
+  <div class="para dry-run">dry run ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  </div>
+
+  <div class="para host">
+    Companies with a custom auth+SSO+domain will set this to their domain, eg https://acme.app.kosli.com
+  </div>
+
+  <div class="para common">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+  <div class="para trail">trail ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </div>
+
+  <div class="para pull-request">pull-request ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+  <div class="para lint">
+    <h3>kosli attest generic</h3>
+    Line 97 is an example of a call to <code>kosli attest generic</code>.
+    It attests the outcome of the <a href="https://rubocop.org/">Rubocop</a> Ruby style linter.
+    The Rubocop <code><a href="https://docs.rubocop.org/rubocop/usage/basic_usage.html#command-line-flags">--raise-cop-error</a></code>
+    flag on line 95 is important:
+    <ul>
+      <li>when there are <em>no</em> Rubocop lint violations:
+        <ul>
+          <li>the exit-code will be <em>zero</em>.</li>
+          <li>the <code>kosli attest generic</code> command <em>will</em> run.</li>
+          <li>its <code>--compliant</code> flag will default to <code>true</code>.</li>
+          <li>the <code>dashboard.lint</code> evidence will be <em>true</em>.</li>
+        </ul>
+      <li>when there <em>are</em> Rubocop lint violations:
+        <ul>
+          <li>the exit-code will be <em>non-zero</em>.</li>
+          <li>the <code>kosli attest generic</code> command will <em>not</em> run.</li>
+          <li>the <code>dashboard.lint</code> evidence will be <em>missing</em>.</li>
+        </ul>
+    </ul>
+    Since only a compliant <code>dashboard</code> artifact will get deployed (thanks to the Kosli sdlc-control-gate on line 214),
+    and your auditors will only need proof for deployed artifacts, this is perfectly acceptable.
+    However, if you wish to explicitly attest <em>incompliant</em> evidence, you can run Rubocop like this:
+    <div class="explained-code">
+      <span class="line">      set +e</span>
+      <span class="line">      rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log</span>
+      <span class="line">      STATUS=${PIPESTATUS[0]}</span>
+      <span class="line">      set -e</span>
+    </div>
+    set the <code>KOSLI_COMPLIANT</code> flag based on ${STATUS} like this:
+    <div class="explained-code">
+      <span class="line">      KOSLI_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)</span>
+    </div>
+    and run <code>kosli attest generic</code> as before:
+    <div class="explained-code">
+      <span class="line">      kosli attest generic \</span>
+      <span class="line">        --evidence-paths=${KOSLI_EVIDENCE_PATHS} \</span>
+      <span class="line">        --name=dashboard.lint</span>
+    </div>
+    If you want the <code>lint:</code> job to return Rubocop's exit status, add a final <code>exit ${STATUS}</code>.
+  </div>
+
+  <div class="para artifact">artifact ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </div>
+
+  <div class="para unit-test">unit-test ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+  <div class="para branch-coverage">branch-coverage ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+  <div class="para snyk">snyk ...
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+
+</div>

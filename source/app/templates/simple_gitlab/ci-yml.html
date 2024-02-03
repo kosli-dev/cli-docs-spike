@@ -1,0 +1,197 @@
+<div class='title'>Gitlab Actions workflow</div>
+<div class='explained-code ci-yml'>
+  <span class='line n '>{% raw %}<span class='number'>   1</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   2</span> image: registry.gitlab.com/cyber-dojo/ci-runner:v12                                                 {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   3</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   4</span> workflow:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   5</span>   rules:                                                                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   6</span>     - if: $CI_COMMIT_MESSAGE =~ /See merge request/ && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   7</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   8</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>   9</span> stages:                                                                                             {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  10</span>   - kosli-trail-stage                                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  11</span>   - pre-build-test-stage                                                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  12</span>   - build-image-stage                                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  13</span>   - post-build-test-stage                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  14</span>   - beta-deployment-stage                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  15</span>   - prod-approval-stage                                                                             {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  16</span>   - sdlc-control-gate-stage                                                                         {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  17</span>   - prod-deployment-stage                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  18</span>                                                                                                     {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  19</span> variables:                                                                                          {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  20</span>   # KOSLI_DRY_RUN: false                          # Org env-var                                     {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  21</span>   # KOSLI_FLOW: creator                           # Repo env-var                                    {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  22</span>   # KOSLI_TRAIL: $CI_COMMIT_SHA                   # Repo env-var (Expanded)                         {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  23</span>   KOSLI_ORG: cyber-dojo-trails                                                                      {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  24</span>   KOSLI_HOST: ${KOSLI_HOST_PROD}                  # Org env-var https://app.kosli.com               {% endraw %}</span>
+  <span class='line s variables'>{% raw %}<span class='number'>  25</span>   KOSLI_API_TOKEN: ${KOSLI_API_TOKEN_TRAILS_PROD} # Org env-var                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  26</span>   DOCKER_HOST: tcp://docker:2376                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  27</span>   DOCKER_TLS_CERTDIR: "/certs"                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  28</span>   DOCKER_TLS_VERIFY: 1                                                                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  29</span>   DOCKER_CERT_PATH: "${DOCKER_TLS_CERTDIR}/client"                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  30</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  31</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  32</span> default:                                                                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  33</span>   artifacts:                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  34</span>     reports:                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  35</span>       dotenv: kosli.env                                                                             {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  36</span>   before_script:                                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  37</span>     # See dev-readme.md : What is my branch?                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  38</span>     - git checkout -b ${CI_COMMIT_BRANCH}                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  39</span>     # Make dir for kosli auto-uploaded attachments                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  40</span>     - echo "KOSLI_ATTACHMENTS=/tmp/kosli_attachments" >> kosli.env                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  41</span>     - export $(cat kosli.env)                                                                       {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  42</span>     - mkdir -p "${KOSLI_ATTACHMENTS}"                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  43</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  44</span>                                                                                                     {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  45</span> kosli-trail:                                                                                        {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  46</span>   stage: kosli-trail-stage                                                                          {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  47</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  48</span>     - echo "IMAGE_NAME=cyberdojo/${CI_PROJECT_NAME}:${CI_COMMIT_SHA:0:7}" >> kosli.env              {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  49</span>     - kosli create flow ${KOSLI_FLOW}                                                               {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  50</span>        --description="UX for Group/Kata creation"                                                   {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  51</span>        --template-file=.kosli.yml                                                                   {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  52</span>     - kosli begin trail ${KOSLI_TRAIL}                                                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  53</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  54</span>                                                                                                     {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  55</span> pull-request:                                                                                       {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  56</span>   stage: pre-build-test-stage                                                                       {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  57</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  58</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  59</span>     - kosli attest pullrequest gitlab                                                               {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  60</span>         --assert                                                                                    {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  61</span>         --gitlab-token=${KOSLI_GITLAB_TOKEN}                                                        {% endraw %}</span>
+  <span class='line s pull-request'>{% raw %}<span class='number'>  62</span>         --name=creator.pull-request                                                                 {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  63</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  64</span>                                                                                                     {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  65</span> lint:                                                                                               {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  66</span>   stage: pre-build-test-stage                                                                       {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  67</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  68</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  69</span>     - set +e                                                                                        {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  70</span>     - rubocop --raise-cop-error . | tee "${KOSLI_ATTACHMENTS}"/rubocop.log                          {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  71</span>     - STATUS=${PIPESTATUS[0]}                                                                       {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  72</span>     - set -e                                                                                        {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  73</span>                                                                                                     {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  74</span>     - KOSLI_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)                               {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  75</span>     - cp .rubocop.yml ${KOSLI_ATTACHMENTS}                                                          {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  76</span>     - kosli attest generic                                                                          {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  77</span>         --attachments="${KOSLI_ATTACHMENTS}"                                                        {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  78</span>         --compliant="${KOSLI_COMPLIANT}"                                                            {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  79</span>         --name=creator.lint                                                                         {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  80</span>     - exit ${STATUS}                                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  81</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  82</span>                                                                                                     {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  83</span> build-image:                                                                                        {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  84</span>   stage: build-image-stage                                                                          {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  85</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  86</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  87</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  88</span>     - source ./sh/echo_versioner_env_vars.sh                                                        {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  89</span>     - export $(echo_versioner_env_vars)                                                             {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  90</span>     - docker-compose build --build-arg COMMIT_SHA=${CI_COMMIT_SHA}                                  {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  91</span>     - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin     {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  92</span>     - docker push ${IMAGE_NAME}                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  93</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  94</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  95</span> unit-test:                                                                                          {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  96</span>   stage: post-build-test-stage                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  97</span>   needs: [ build-image, kosli-trail ]                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  98</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  99</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 100</span>     - set +e                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 101</span>     - source ./sh/run_tests_with_coverage.sh                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 102</span>     - run_tests_with_coverage                                                                       {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 103</span>     - STATUS=$?                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 104</span>     - set -e                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 105</span>                                                                                                     {% endraw %}</span>
+  <span class='line s unit-test'>{% raw %}<span class='number'> 106</span>     - kosli attest junit ${IMAGE_NAME}                                                              {% endraw %}</span>
+  <span class='line s unit-test'>{% raw %}<span class='number'> 107</span>         --name=creator.unit-test                                                                    {% endraw %}</span>
+  <span class='line s unit-test'>{% raw %}<span class='number'> 108</span>         --results-dir=test/server/reports/junit                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 109</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 110</span>     - KOSLI_COMPLIANT=$([ ${STATUS} = 0 ] && echo true || echo false)                               {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 111</span>     - kosli attest generic ${IMAGE_NAME}                                                            {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 112</span>         --attachments=./test/evidence.json                                                          {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 113</span>         --attachments=./test/server/reports                                                         {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 114</span>         --attachments=./test/client/reports                                                         {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 115</span>         --compliant=${KOSLI_COMPLIANT}                                                              {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 116</span>         --description="server & client branch-coverage"                                             {% endraw %}</span>
+  <span class='line s branch-coverage'>{% raw %}<span class='number'> 117</span>         --name=creator.branch-coverage                                                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 118</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 119</span>     - exit ${STATUS}                                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 120</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 121</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 122</span> security-scan:                                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 123</span>   stage: post-build-test-stage                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 124</span>   needs: [ build-image, kosli-trail ]                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 125</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 126</span>     - set +e                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 127</span>     - snyk container test ${IMAGE_NAME}                                                             {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 128</span>         --file=Dockerfile                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 129</span>         --json-file-output=snyk.json                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 130</span>         --policy-path=.snyk                                                                         {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 131</span>     - STATUS=$?                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 132</span>     - set -e                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 133</span>                                                                                                     {% endraw %}</span>
+  <span class='line s snyk'>{% raw %}<span class='number'> 134</span>     - kosli attest snyk ${IMAGE_NAME}                                                               {% endraw %}</span>
+  <span class='line s snyk'>{% raw %}<span class='number'> 135</span>         --name=creator.snyk-scan                                                                    {% endraw %}</span>
+  <span class='line s snyk'>{% raw %}<span class='number'> 136</span>         --scan-results=snyk.json                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 137</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 138</span>     - exit ${STATUS}                                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 139</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 140</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 141</span> beta-deployment:                                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 142</span>   stage: beta-deployment-stage                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 143</span>   needs: [ lint, pull-request, unit-test, security-scan, kosli-trail, build-image ]                 {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 144</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 145</span>   variables:                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 146</span>     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID_BETA}                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 147</span>     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY_BETA}                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 148</span>     KOSLI_ENVIRONMENT_NAME: aws-beta                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 149</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 150</span>     - kosli expect deployment ${IMAGE_NAME}                                                         {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 151</span>         --description "Deployed to ${KOSLI_ENVIRONMENT_NAME} in Gitlab pipeline"                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 152</span>         --environment ${KOSLI_ENVIRONMENT_NAME}                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 153</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 154</span>     - ./sh/wait_for_deployment.sh                                                                   {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 155</span>         ${IMAGE_NAME}                                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 156</span>         ${KOSLI_ENVIRONMENT_NAME}                                                                   {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 157</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 158</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 159</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 160</span> prod-approval:                                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 161</span>   stage: prod-approval-stage                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 162</span>   needs: [ beta-deployment, kosli-trail, build-image ]                                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 163</span>   when: manual                                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 164</span>   allow_failure: false                                                                              {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 165</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 166</span>     - kosli report approval ${IMAGE_NAME}                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 167</span>         --description="Approved in Gitlab pipeline"                                                 {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 168</span>         --environment=aws-prod                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 169</span>         --approver="${GITLAB_USER_NAME} <${GITLAB_USER_EMAIL}>"                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 170</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 171</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 172</span> sdlc-control-gate:                                                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 173</span>   stage: sdlc-control-gate-stage                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 174</span>   needs: [ prod-approval, kosli-trail, build-image ]                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 175</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 176</span>     - kosli assert artifact ${IMAGE_NAME}                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 177</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 178</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 179</span> prod-deployment:                                                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 180</span>   stage: prod-deployment-stage                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 181</span>   needs: [ sdlc-control-gate, kosli-trail, build-image ]                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 182</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 183</span>   variables:                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 184</span>     AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID_PROD}                                                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 185</span>     AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY_PROD}                                            {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 186</span>     KOSLI_ENVIRONMENT_NAME: aws-prod                                                                {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 187</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 188</span>     - kosli expect deployment ${IMAGE_NAME}                                                         {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 189</span>         --description "Deployed to ${KOSLI_ENVIRONMENT_NAME} in Gitlab pipeline"                    {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 190</span>         --environment ${KOSLI_ENVIRONMENT_NAME}                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 191</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 192</span>     - ./sh/wait_for_deployment.sh                                                                   {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 193</span>         ${IMAGE_NAME}                                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 194</span>         ${KOSLI_ENVIRONMENT_NAME}                                                                   {% endraw %}</span>
+</div>

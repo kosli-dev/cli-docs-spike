@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div id="gitlab-explain">
+  <table>
+    <tr>
+      <td>{% include 'simple_gitlab/template-yml.html' %}</td>
+      <td>{% include 'simple_gitlab/template-yml-commentary.html' %}</td>
+    </tr>
+  </table>
+  {% include 'simple_gitlab/attestations.html' %}
+  <table>
+    <tr>
+      <td>{% include 'simple_gitlab/ci-yml.html' %}</td>
+      <td>{% include 'simple_gitlab/ci-yml-commentary.html' %}</td>
+    </tr>
+  </table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  $(window).ready(()=> {
+
+    setupExplainCodeHandlers('#gitlab-explain', [
+      ["template-yml", "template-yml-commentary"],
+      ["ci-yml", "ci-yml-commentary"]
+    ]);
+
+  });
+</script>
+{% endblock %}

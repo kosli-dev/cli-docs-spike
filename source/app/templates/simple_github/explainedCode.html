@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div id="dashboard-explain">
+<div id="github-explain">
   <table>
     <tr>
       <td>{% include 'simple_github/template-yml.html' %}</td>
@@ -22,7 +22,7 @@
 <script type="text/javascript">
   $(window).ready(()=> {
 
-    setupExplainCodeHandlers('#dashboard-explain', [
+    setupExplainCodeHandlers('#github-explain', [
       ["template-yml", "template-yml-commentary"],
       ["ci-yml", "ci-yml-commentary"]
     ]);

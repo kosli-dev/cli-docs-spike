@@ -33,7 +33,7 @@
   <span class='line s trail'>{% raw %}<span class='number'>  31</span>       - name: Create Kosli Flow                                                             {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  32</span>         run:                                                                                {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  33</span>           kosli create flow "${{ env.KOSLI_FLOW }}"                                         {% endraw %}</span>
-  <span class='line s trail'>{% raw %}<span class='number'>  34</span>             --description="Diff files from two traffic-lights"                              {% endraw %}</span>
+  <span class='line s trail'>{% raw %}<span class='number'>  34</span>             --description="UX for a group practice dashboard"                               {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  35</span>             --template-file=.kosli.yml                                                      {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  36</span>                                                                                             {% endraw %}</span>
   <span class='line s trail'>{% raw %}<span class='number'>  37</span>       - name: Begin Kosli Trail                                                             {% endraw %}</span>
@@ -89,15 +89,15 @@
   <span class='line n '>{% raw %}<span class='number'>  87</span>                                                                                             {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  88</span>       - name: Run Rubocop linter on source, attest evidence to Kosli Trail                  {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  89</span>         env:                                                                                {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  90</span>           KOSLI_EVIDENCE_PATHS: /tmp/evidence/lint                                          {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  90</span>           KOSLI_ATTACHMENTS: /tmp/kosli_attachments                                         {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  91</span>         run: |                                                                              {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  92</span>           gem install rubocop                                                               {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  93</span>           mkdir -p "${KOSLI_EVIDENCE_PATHS}"                                                {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  93</span>           mkdir -p "${KOSLI_ATTACHMENTS}"                                                   {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  94</span>           set -o pipefail                                                                   {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  95</span>           rubocop --raise-cop-error . | tee ${KOSLI_EVIDENCE_PATHS}/rubocop.log             {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  96</span>           cp .rubocop.yml ${KOSLI_EVIDENCE_PATHS}                                           {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  95</span>           rubocop --raise-cop-error . | tee ${KOSLI_ATTACHMENTS}/rubocop.log                {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  96</span>           cp .rubocop.yml ${KOSLI_ATTACHMENTS}                                              {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  97</span>           kosli attest generic \                                                            {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  98</span>             --evidence-paths=${KOSLI_EVIDENCE_PATHS} \                                      {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  98</span>             --attachments=${KOSLI_ATTACHMENTS} \                                            {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  99</span>             --name=dashboard.lint                                                           {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 100</span>                                                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 101</span>                                                                                             {% endraw %}</span>

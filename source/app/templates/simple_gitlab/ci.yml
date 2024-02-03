@@ -67,7 +67,7 @@ lint:
   needs: [ kosli-trail ]
   script:
     - set +e
-    - rubocop --raise-cop-error . | tee "${KOSLI_ATTACHMENTS}"/rubocop.log
+    - make lint . | tee "${KOSLI_ATTACHMENTS}"/rubocop.log
     - STATUS=${PIPESTATUS[0]}
     - set -e
 
@@ -77,6 +77,7 @@ lint:
         --attachments="${KOSLI_ATTACHMENTS}"
         --compliant="${KOSLI_COMPLIANT}"
         --name=creator.lint
+
     - exit ${STATUS}
 
 
@@ -98,9 +99,8 @@ unit-test:
   services: [ docker:24.0.5-dind ]
   script:
     - set +e
-    - source ./sh/run_tests_with_coverage.sh
-    - run_tests_with_coverage
-    - STATUS=$?
+    - make test | tee "${KOSLI_ATTACHMENTS}"/unit-test.log
+    - STATUS=${PIPESTATUS[0]}
     - set -e
 
     - kosli attest junit ${IMAGE_NAME}
@@ -127,8 +127,8 @@ security-scan:
     - snyk container test ${IMAGE_NAME}
         --file=Dockerfile
         --json-file-output=snyk.json
-        --policy-path=.snyk
-    - STATUS=$?
+        --policy-path=.snyk | tee "${KOSLI_ATTACHMENTS}"/snyk.log
+    - STATUS=${PIPESTATUS[0]}
     - set -e
 
     - kosli attest snyk ${IMAGE_NAME}

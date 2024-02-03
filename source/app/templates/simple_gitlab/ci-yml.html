@@ -69,7 +69,7 @@
   <span class='line s lint'>{% raw %}<span class='number'>  67</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  68</span>   script:                                                                                           {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  69</span>     - set +e                                                                                        {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  70</span>     - rubocop --raise-cop-error . | tee "${KOSLI_ATTACHMENTS}"/rubocop.log                          {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  70</span>     - make lint . | tee "${KOSLI_ATTACHMENTS}"/rubocop.log                                          {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  71</span>     - STATUS=${PIPESTATUS[0]}                                                                       {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  72</span>     - set -e                                                                                        {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  73</span>                                                                                                     {% endraw %}</span>
@@ -79,30 +79,30 @@
   <span class='line s lint'>{% raw %}<span class='number'>  77</span>         --attachments="${KOSLI_ATTACHMENTS}"                                                        {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  78</span>         --compliant="${KOSLI_COMPLIANT}"                                                            {% endraw %}</span>
   <span class='line s lint'>{% raw %}<span class='number'>  79</span>         --name=creator.lint                                                                         {% endraw %}</span>
-  <span class='line s lint'>{% raw %}<span class='number'>  80</span>     - exit ${STATUS}                                                                                {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  81</span>                                                                                                     {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  80</span>                                                                                                     {% endraw %}</span>
+  <span class='line s lint'>{% raw %}<span class='number'>  81</span>     - exit ${STATUS}                                                                                {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  82</span>                                                                                                     {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  83</span> build-image:                                                                                        {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  84</span>   stage: build-image-stage                                                                          {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  85</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  86</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  87</span>   script:                                                                                           {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  88</span>     - source ./sh/echo_versioner_env_vars.sh                                                        {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  89</span>     - export $(echo_versioner_env_vars)                                                             {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  90</span>     - docker-compose build --build-arg COMMIT_SHA=${CI_COMMIT_SHA}                                  {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  91</span>     - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin     {% endraw %}</span>
-  <span class='line s artifact'>{% raw %}<span class='number'>  92</span>     - docker push ${IMAGE_NAME}                                                                     {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  93</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  83</span>                                                                                                     {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  84</span> build-image:                                                                                        {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  85</span>   stage: build-image-stage                                                                          {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  86</span>   needs: [ kosli-trail ]                                                                            {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  87</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  88</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  89</span>     - source ./sh/echo_versioner_env_vars.sh                                                        {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  90</span>     - export $(echo_versioner_env_vars)                                                             {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  91</span>     - docker-compose build --build-arg COMMIT_SHA=${CI_COMMIT_SHA}                                  {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  92</span>     - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin     {% endraw %}</span>
+  <span class='line s artifact'>{% raw %}<span class='number'>  93</span>     - docker push ${IMAGE_NAME}                                                                     {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'>  94</span>                                                                                                     {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  95</span> unit-test:                                                                                          {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  96</span>   stage: post-build-test-stage                                                                      {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  97</span>   needs: [ build-image, kosli-trail ]                                                               {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  98</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'>  99</span>   script:                                                                                           {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 100</span>     - set +e                                                                                        {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 101</span>     - source ./sh/run_tests_with_coverage.sh                                                        {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 102</span>     - run_tests_with_coverage                                                                       {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 103</span>     - STATUS=$?                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  95</span>                                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  96</span> unit-test:                                                                                          {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  97</span>   stage: post-build-test-stage                                                                      {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  98</span>   needs: [ build-image, kosli-trail ]                                                               {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'>  99</span>   services: [ docker:24.0.5-dind ]                                                                  {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 100</span>   script:                                                                                           {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 101</span>     - set +e                                                                                        {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 102</span>     - make test | tee "${KOSLI_ATTACHMENTS}"/unit-test.log                                          {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 103</span>     - STATUS=${PIPESTATUS[0]}                                                                       {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 104</span>     - set -e                                                                                        {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 105</span>                                                                                                     {% endraw %}</span>
   <span class='line s unit-test'>{% raw %}<span class='number'> 106</span>     - kosli attest junit ${IMAGE_NAME}                                                              {% endraw %}</span>
@@ -129,8 +129,8 @@
   <span class='line n '>{% raw %}<span class='number'> 127</span>     - snyk container test ${IMAGE_NAME}                                                             {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 128</span>         --file=Dockerfile                                                                           {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 129</span>         --json-file-output=snyk.json                                                                {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 130</span>         --policy-path=.snyk                                                                         {% endraw %}</span>
-  <span class='line n '>{% raw %}<span class='number'> 131</span>     - STATUS=$?                                                                                     {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 130</span>         --policy-path=.snyk | tee "${KOSLI_ATTACHMENTS}"/snyk.log                                   {% endraw %}</span>
+  <span class='line n '>{% raw %}<span class='number'> 131</span>     - STATUS=${PIPESTATUS[0]}                                                                       {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 132</span>     - set -e                                                                                        {% endraw %}</span>
   <span class='line n '>{% raw %}<span class='number'> 133</span>                                                                                                     {% endraw %}</span>
   <span class='line s snyk'>{% raw %}<span class='number'> 134</span>     - kosli attest snyk ${IMAGE_NAME}                                                               {% endraw %}</span>
